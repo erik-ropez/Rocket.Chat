@@ -24,6 +24,7 @@ import {
 	call,
 	keyCodes,
 	isRTL,
+	fireGlobalEvent,
 } from '../../../ui-utils';
 import {
 	t,
@@ -512,5 +513,17 @@ Template.messageBox.events({
 		}
 
 		applyFormatting(pattern, instance.input);
+	},
+	'click .js-send-tip'(event, instance) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		const { rid } = Template.currentData();
+		const room = Session.get(`roomData${ rid }`);
+		const username = room.usernames[0]
+
+		return fireGlobalEvent('click-send-tip', {
+			username,
+		});
 	},
 });
