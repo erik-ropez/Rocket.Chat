@@ -4638,5 +4638,11 @@
   "Your_server_link": "Your server link",
   "Your_temporary_password_is_password": "Your temporary password is <strong>[password]</strong>.",
   "Your_TOTP_has_been_reset": "Your Two Factor TOTP has been reset.",
-  "Your_workspace_is_ready": "Your workspace is ready to use 🎉"
+  "Your_workspace_is_ready": "Your workspace is ready to use 🎉",
+
+  "Mass_Messages": "Mass Messages",
+  "Mass_message_manual_entry": "Manual entry",
+  "Mass_message_subscribers": "Subscribers",
+  "Mass_message_subscribers_description": "You are about to send messages to all of your subscribers.",
+  "Mass_message_manual_entry_description": "You are about to send messages to multiple users. Add the ones you would like to talk."
 }

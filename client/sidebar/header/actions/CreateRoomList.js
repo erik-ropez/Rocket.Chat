@@ -11,6 +11,7 @@ import { useTranslation } from '../../../contexts/TranslationContext';
 import CreateTeamModal from '../../../views/teams/CreateTeamModal';
 import CreateChannelWithData from '../CreateChannelWithData';
 import CreateDirectMessage from '../CreateDirectMessage';
+import CreateMassMessage from '../CreateMassMessage';
 import CreateRoomListItem from './CreateRoomListItem';
 
 const CREATE_CHANNEL_PERMISSIONS = ['create-c', 'create-p'];
@@ -44,12 +45,14 @@ function CreateRoomList() {
 	const canCreateChannel = useAtLeastOnePermission(CREATE_CHANNEL_PERMISSIONS);
 	const canCreateTeam = useAtLeastOnePermission(CREATE_TEAM_PERMISSIONS);
 	const canCreateDirectMessages = useAtLeastOnePermission(CREATE_DIRECT_PERMISSIONS);
+	const canCreateMassMessages = true;
 	const canCreateDiscussion = useAtLeastOnePermission(CREATE_DISCUSSION_PERMISSIONS);
 
 	const createChannel = useReactModal(CreateChannelWithData);
 	const createTeam = useReactModal(CreateTeamModal);
 	const createDiscussion = useReactModal(CreateDiscussion);
 	const createDirectMessage = useReactModal(CreateDirectMessage);
+	const createMassMessage = useReactModal(CreateMassMessage);
 
 	const discussionEnabled = useSetting('Discussion_enabled');
 
@@ -71,6 +74,13 @@ function CreateRoomList() {
 							icon='balloon'
 							text={t('Direct_Messages')}
 							action={createDirectMessage}
+						/>
+					)}
+					{canCreateMassMessages && (
+						<CreateRoomListItem
+							icon='balloon'
+							text={t('Mass_Messages')}
+							action={createMassMessage}
 						/>
 					)}
 					{discussionEnabled && canCreateDiscussion && (
