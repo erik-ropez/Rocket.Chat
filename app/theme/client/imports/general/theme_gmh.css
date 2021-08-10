@@ -35,3 +35,11 @@
 .sidebar-search-input .rcx-input-box:focus + .rcx-input-box__addon {
     color: black;
 }
+
+/*
+ *
+ */
+
+.page-container.page-home {
+    background-color: #f3f3f3;
+}
