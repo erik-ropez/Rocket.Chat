@@ -106,6 +106,30 @@
 }
 
 /*
+ *  Message box
+ */
+
+.rc-message-box .rc-message-box__container {
+    border: 2px solid #1C1C1C;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 10px 0;
+}
+
+.rc-message-box .rc-message-box__container .rc-message-box__icon {
+    height: 38px;
+}
+
+.rc-message-box .rc-message-box__container .rc-message-box__icon.rc-message-box__send {
+    filter: drop-shadow(0px 2.24444px 4.48889px rgba(75, 81, 91, 0.15)) drop-shadow(0px 0.748148px 2.24444px rgba(0, 0, 0, 0.15));
+    background: #00FFEA;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/*
  *  Connection status bar
  */
 
