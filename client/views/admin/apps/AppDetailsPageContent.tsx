@@ -154,7 +154,7 @@ const AppDetailsPageContent: FC<AppDetailsPageContentProps> = ({ data }) => {
 									>
 										{bundle.apps.map((app) => (
 											<AppAvatar
-												size='x36'
+												size='x46'
 												key={app.latest.name}
 												iconFileContent={app.latest.iconFileContent}
 												iconFileData={app.latest.iconFileData}

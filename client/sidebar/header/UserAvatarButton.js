@@ -43,7 +43,7 @@ const UserAvatarButton = ({ user = {} }) => {
 			`}
 			data-qa='sidebar-avatar-button'
 		>
-			<UserAvatar size='x24' username={username} etag={avatarETag} />
+			<UserAvatar size='x36' username={username} etag={avatarETag} />
 			<Box
 				className={css`
 					bottom: 0;

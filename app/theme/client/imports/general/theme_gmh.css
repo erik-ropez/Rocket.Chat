@@ -1,11 +1,17 @@
 
 /**
- *  Sidebar header button group
+ *  Sidebar header
  */
 
 .rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .rcx-button-group__item {
     font-size: 1.5rem;
     color: #000;
+}
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-block: 0;
 }
 
 /*
@@ -37,9 +43,64 @@
 }
 
 /*
- *
+ *  Home page
  */
 
 .page-container.page-home {
     background-color: #f3f3f3;
+}
+
+/*
+ *  Avatar
+ */
+
+.rcx-avatar,
+.rcx-box.rcx-avatar {
+    border-radius: 50%;
+    border: 2px solid #00FFEA;
+    box-sizing: content-box;
+}
+
+.rcx-avatar > img {
+    border-radius: 50%;
+}
+
+.rcx-avatar--x42 {
+    width: 2.625rem;
+    height: 2.625rem;
+}
+
+.rcx-avatar--x46 {
+    width: 2.875rem;
+    height: 2.875rem;
+}
+
+.rcx-avatar--x36 {
+    width: 2.875rem;
+    height: 2.875rem;
+}
+
+/*
+ *  Messages
+ */
+
+.messages-container-wrapper .message .avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid #00FFEA;
+    box-sizing: content-box;
+}
+
+.messages-container-wrapper .message .avatar > img {
+    border-radius: 50%;
+}
+
+.messages-container-wrapper .rcx-avatar--x48 {
+    width: 90px;
+    height: 90px;
+}
+
+.messages-container-wrapper .rcx-avatar-stack > .rcx-avatar > .rcx-avatar__element {
+    border: none;
 }

@@ -47,7 +47,7 @@ export default memo(function Message({
 			].filter(Boolean)}
 		>
 			<MessageTemplate.Container mb='neg-x2'>
-				<UserAvatar username={username} className='rcx-message__avatar' size='x36' />
+				<UserAvatar username={username} className='rcx-message__avatar' size='x46' />
 			</MessageTemplate.Container>
 			<MessageTemplate.Container width='1px' mb='neg-x4' flexGrow={1}>
 				<MessageTemplate.Header>

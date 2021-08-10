@@ -4,7 +4,7 @@ import React from 'react';
 import Medium from '../Medium';
 
 const MediumSkeleton = ({ showAvatar }) => (
-	<Box height='x36'>
+	<Box height='x46'>
 		<Medium
 			title={<Skeleton width='100%' />}
 			titleIcon={<Box mi='x4'>{<Skeleton width={12} />}</Box>}

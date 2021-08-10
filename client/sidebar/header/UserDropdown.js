@@ -100,7 +100,7 @@ const UserDropdown = ({ user, onClose }) => {
 		<Box display='flex' flexDirection='column' maxWidth='244px'>
 			<Box display='flex' flexDirection='row' mi='neg-x8'>
 				<Box mie='x4' mis='x8'>
-					<UserAvatar size='x36' username={username} etag={avatarETag} />
+					<UserAvatar size='x46' username={username} etag={avatarETag} />
 				</Box>
 				<Box
 					mie='x8'
