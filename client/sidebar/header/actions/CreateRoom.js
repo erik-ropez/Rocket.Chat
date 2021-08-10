@@ -28,7 +28,11 @@ const CreateRoom = (props) => {
 	};
 
 	return showCreate ? (
-		<Sidebar.TopBar.Action {...props} icon='edit-rounded' onClick={onClick} />
+		<button type="button" onClick={onClick} {...props}>
+			<svg class="rc-icon" aria-hidden="true">
+				<use href="#icon-edit-rounded"></use>
+			</svg>
+		</button>
 	) : null;
 };
 

@@ -174,7 +174,7 @@ const SearchList = forwardRef(function SearchList({ onClose }, ref) {
 
 	const filterText = useDebouncedValue(filter.value, 100);
 
-	const placeholder = [t('Search'), shortcut].filter(Boolean).join(' ');
+	const placeholder = t('Search_Chat');
 
 	const { data: items, status } = useSearchItems(filterText);
 
@@ -281,16 +281,21 @@ const SearchList = forwardRef(function SearchList({ onClose }, ref) {
 			`}
 			ref={ref}
 		>
-			<Sidebar.TopBar.Section role='search' is='form'>
-				<TextInput
-					aria-owns={listId}
-					data-qa='sidebar-search-input'
-					ref={autofocus}
-					{...filter}
-					placeholder={placeholder}
-					addon={<Icon name='cross' size='x20' onClick={onClose} />}
-				/>
-			</Sidebar.TopBar.Section>
+			<div class="sidebar-search-input">
+				<Sidebar.TopBar.Section role='search' is='form'>
+					<svg class="rc-icon" aria-hidden="true">
+						<use href="#icon-magnifier"></use>
+					</svg>
+					<TextInput
+						aria-owns={listId}
+						data-qa='sidebar-search-input'
+						ref={autofocus}
+						{...filter}
+						placeholder={placeholder}
+						addon={<Icon name='cross' size='x15' onClick={onClose} />}
+					/>
+				</Sidebar.TopBar.Section>
+			</div>
 			<Box
 				ref={boxRef}
 				aria-expanded='true'

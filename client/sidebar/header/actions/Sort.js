@@ -16,6 +16,12 @@ const onClick = (e) => {
 	popover.open(config(e));
 };
 
-const Sort = (props) => <Sidebar.TopBar.Action {...props} icon='sort' onClick={onClick} />;
+const Sort = (props) => (
+	<button type="button" onClick={onClick} {...props}>
+		<svg class="rc-icon" aria-hidden="true">
+			<use href="#icon-sort"></use>
+		</svg>
+	</button>
+);
 
 export default Sort;

@@ -1,0 +1,37 @@
+
+/**
+ *  Sidebar header button group
+ */
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .rcx-button-group__item {
+    font-size: 1.5rem;
+    color: #000;
+}
+
+/*
+ *  Sidebar search
+ */
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .sidebar-search-input .rcx-sidebar-topbar__wrapper {
+    padding: 14px 0 15px 10px;
+}
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .sidebar-search-input .rcx-label {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .sidebar-search-input .rcx-input-box {
+    color: #929897;
+}
+
+.rcx-sidebar .rcx-sidebar-topbar .rcx-sidebar-topbar__wrapper .rcx-button-group .sidebar-search-input .rcx-sidebar-topbar__wrapper .rc-icon {
+    font-size: 1.5rem;
+    color: #929897;
+}
+
+.sidebar-search-input .rcx-input-box + .rcx-input-box__addon,
+.sidebar-search-input .rcx-input-box:focus + .rcx-input-box__addon {
+    color: black;
+}

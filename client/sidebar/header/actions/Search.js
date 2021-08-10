@@ -1,4 +1,4 @@
-import { Sidebar } from '@rocket.chat/fuselage';
+import { Icon } from '@rocket.chat/fuselage';
 import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import React, { useState, useEffect } from 'react';
 import tinykeys from 'tinykeys';
@@ -40,7 +40,11 @@ const Search = (props) => {
 
 	return (
 		<>
-			<Sidebar.TopBar.Action icon='magnifier' onClick={openSearch} {...props} />
+			<button type="button" onClick={openSearch} {...props}>
+				<svg class="rc-icon" aria-hidden="true">
+					<use href="#icon-magnifier"></use>
+				</svg>
+			</button>
 			{searchOpen && <SearchList ref={ref} onClose={handleCloseSearch} />}
 		</>
 	);
