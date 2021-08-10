@@ -7,9 +7,9 @@ const UserCardContainer = forwardRef(function UserCardContainer(props, ref) {
 			rcx-user-card
 			bg='surface'
 			elevation='2'
-			p='x24'
+			p='x12'
 			display='flex'
-			borderRadius='x2'
+			borderRadius='x7'
 			width='439px'
 			{...props}
 			ref={ref}

@@ -51,7 +51,7 @@ const UserCard = forwardRef(function UserCard(
 ) {
 	return (
 		<UserCardContainer className={className} ref={ref} style={style}>
-			<Box>
+			<Box pb='x24' pi='x12'>
 				<UserAvatar username={username} etag={etag} size='x124' />
 				{actions && (
 					<Box flexGrow={0} display='flex' mb='x8' align='center' justifyContent='center'>
@@ -59,8 +59,8 @@ const UserCard = forwardRef(function UserCard(
 					</Box>
 				)}
 			</Box>
-			<Box display='flex' flexDirection='column' flexGrow={1} flexShrink={1} mis='x24' width='1px'>
-				<Box withTruncatedText display='flex'>
+			<Box pb='x24' className='user-card-info' display='flex' flexDirection='column' flexGrow={1} flexShrink={1} mis='x24' width='1px'>
+				<Box mb="x4" withTruncatedText display='flex'>
 					<Username status={status} name={name} title={username !== name ? username : undefined} />
 					{nickname && (
 						<Box title={t('Nickname')} color='hint' mis='x8' fontScale='p1' withTruncatedText>
@@ -69,7 +69,7 @@ const UserCard = forwardRef(function UserCard(
 					)}
 				</Box>
 				{customStatus && (
-					<Info>
+					<Info mb="x4" className="user-card-info-status">
 						{typeof customStatus === 'string' ? (
 							<MarkdownText content={customStatus} />
 						) : (
@@ -77,17 +77,20 @@ const UserCard = forwardRef(function UserCard(
 						)}
 					</Info>
 				)}
-				<Roles>{roles}</Roles>
-				<Info>{localTime}</Info>
+				<Info mb="x4">{localTime}</Info>
 				{bio && (
-					<Info withTruncatedText={false} style={clampStyle} height='x60'>
+					<Info mb="x4" withTruncatedText={false} style={clampStyle} height='x60'>
 						{typeof bio === 'string' ? <MarkdownText content={bio} /> : bio}
 					</Info>
 				)}
-				{open && <a onClick={open}>{t('See_full_profile')}</a>}
+				{open && (
+					<Info mb="x4" className="user-card-info-open-profile">
+						<a onClick={open}>{t('See_full_profile')}</a>
+					</Info>
+				)}
 			</Box>
 			{onClose && (
-				<Box>
+				<Box className='user-card-close'>
 					<ActionButton ghost icon='cross' onClick={onClose} />
 				</Box>
 			)}
