@@ -104,3 +104,25 @@
 .messages-container-wrapper .rcx-avatar-stack > .rcx-avatar > .rcx-avatar__element {
     border: none;
 }
+
+/*
+ *  Connection status bar
+ */
+
+.ConnectionStatusBar {
+    display: flex;
+    justify-content: space-between;
+    height: 54px;
+    border-bottom: 7px solid #FFA700;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-color: #FFE5B3;
+    align-items: center;
+    color: #1C1C1C;
+    padding: 0 36px;
+}
+
+.ConnectionStatusBar__retry-link {
+    text-decoration-line: underline;
+    color: #00A69A;
+}

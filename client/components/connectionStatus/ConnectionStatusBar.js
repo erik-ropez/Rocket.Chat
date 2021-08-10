@@ -58,13 +58,13 @@ function ConnectionStatusBar() {
 
 	return (
 		<div className='ConnectionStatusBar' role='alert'>
-			<strong>
-				<Icon name='warning' /> {t('meteor_status', { context: status })}
-			</strong>
+			<div>
+				{t('meteor_status', { context: status })}
 
-			{status === 'waiting' && (
-				<> {t('meteor_status_reconnect_in', { count: reconnectCountdown })}</>
-			)}
+				{status === 'waiting' && (
+					<> {t('meteor_status_reconnect_in', { count: reconnectCountdown })}</>
+				)}
+			</div>
 
 			{['waiting', 'offline'].includes(status) && (
 				<>
