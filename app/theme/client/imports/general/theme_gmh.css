@@ -285,3 +285,48 @@
     border-top-right-radius: 0;
     padding: 24px;
 }
+
+/*
+ *  Modals
+ */
+
+.rcx-modal .rcx-modal__inner {
+    border-radius: 7px;
+}
+
+.rcx-modal .rcx-modal__header {
+    background-color: #1C1C1C;
+    margin: 0;
+    margin-bottom: 32px;
+    padding: 8px 24px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.rcx-modal .rcx-modal__header .rcx-modal__title {
+    font-size: 18px;
+    color: #F3F3F3;
+}
+
+.rcx-modal .rcx-modal__header .rcx-button .rcx-icon {
+    color: white;
+    font-size: 1rem!important;
+}
+
+.rcx-modal .rcx-modal__footer .rcx-button {
+    border: 2px solid #001312;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background-color: white;
+    padding: 7px 42px;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
+
+.rcx-modal .rcx-modal__footer .rcx-button.rcx-button--primary {
+    border-color: #00FFEA;
+    background: #00FFEA;
+}
