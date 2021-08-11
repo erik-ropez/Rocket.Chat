@@ -18,7 +18,8 @@ const openDropdown = (e, user, onClose, allowAnonymousRead) => {
 				user,
 				onClose,
 			},
-			offsetVertical: e.currentTarget.clientHeight + 10,
+			offsetVertical: e.currentTarget.clientHeight + 8,
+			popoverClass: 'user-dropdown',
 		});
 	}
 };

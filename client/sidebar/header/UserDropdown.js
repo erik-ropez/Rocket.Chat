@@ -97,10 +97,10 @@ const UserDropdown = ({ user, onClose }) => {
 	const accountBoxItems = useReactiveValue(getItems);
 
 	return (
-		<Box display='flex' flexDirection='column' maxWidth='244px'>
+		<Box className='user-dropdown' display='flex' flexDirection='column' maxWidth='244px' width='200px'>
 			<Box display='flex' flexDirection='row' mi='neg-x8'>
 				<Box mie='x4' mis='x8'>
-					<UserAvatar size='x46' username={username} etag={avatarETag} />
+					<UserAvatar size='x36' username={username} etag={avatarETag} />
 				</Box>
 				<Box
 					mie='x8'
@@ -127,11 +127,8 @@ const UserDropdown = ({ user, onClose }) => {
 				</Box>
 			</Box>
 
-			<Divider mi='neg-x16' mb='x16' borderColor='muted' />
+			<Divider mb='x16' borderColor='muted' borderBlockStartWidth='0' />
 			<div style={style}>
-				<Box pi='x16' fontScale='c1' textTransform='uppercase'>
-					{t('Status')}
-				</Box>
 				{Object.keys(userStatus.list)
 					.filter(filterInvisibleStatus)
 					.map((key, i) => {
@@ -154,44 +151,18 @@ const UserDropdown = ({ user, onClose }) => {
 							</Option>
 						);
 					})}
-				<Option icon='emoji' label={`${t('Custom_Status')}...`} onClick={handleCustomStatus} />
 			</div>
 
-			{(accountBoxItems.length || showAdmin) && (
+			{showAdmin && (
 				<>
 					<Divider mi='neg-x16' mb='x16' />
 					<div style={style}>
 						{showAdmin && (
 							<Option icon={'customize'} label={t('Administration')} onClick={handleAdmin} />
 						)}
-						{accountBoxItems.map((item, i) => {
-							let action;
-
-							if (item.href || item.sideNav) {
-								action = () => {
-									if (item.href) {
-										FlowRouter.go(item.href);
-										popover.close();
-									}
-									if (item.sideNav) {
-										SideNav.setFlex(item.sideNav);
-										SideNav.openFlex();
-										popover.close();
-									}
-								};
-							}
-
-							return <Option icon={item.icon} label={t(item.name)} onClick={action} key={i} />;
-						})}
 					</div>
 				</>
 			)}
-
-			<Divider mi='neg-x16' mb='x16' />
-			<div style={style}>
-				<Option icon='user' label={t('My_Account')} onClick={handleMyAccount} />
-				<Option icon='sign-out' label={t('Logout')} onClick={handleLogout} />
-			</div>
 		</Box>
 	);
 };

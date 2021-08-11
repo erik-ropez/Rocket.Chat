@@ -97,16 +97,18 @@
     height: 1.5rem;
 }
 
+.rcx-sidebar-topbar__wrapper .rcx-avatar.rcx-avatar--x36,
 .rcx-sidebar-item__avatar .rcx-avatar.rcx-avatar--x36,
-.rcx-room-header .rcx-avatar.rcx-avatar--x36,
-.rcx-sidebar-topbar__wrapper .rcx-avatar.rcx-avatar--x36 {
+.user-dropdown .rcx-avatar.rcx-avatar--x36,
+.rcx-room-header .rcx-avatar.rcx-avatar--x36 {
     width: 2.875rem;
     height: 2.875rem;
 }
 
+.rcx-sidebar-topbar__wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
 .rcx-sidebar-item__avatar .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
-.rcx-room-header .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
-.rcx-sidebar-topbar__wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x36 {
+.user-dropdown .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
+.rcx-room-header .rcx-avatar .rcx-avatar__element.rcx-avatar--x36 {
     width: 2.625rem;
     height: 2.625rem;
 }
@@ -269,4 +271,17 @@
 .ConnectionStatusBar__retry-link {
     text-decoration-line: underline;
     color: #00A69A;
+}
+
+/*
+ *  User dropdown
+ */
+
+.rc-popover.rc-popover--user-dropdown .rc-popover__content {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 24px;
 }
