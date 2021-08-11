@@ -70,47 +70,67 @@
 .rcx-box.rcx-avatar {
     border-radius: 50%;
     border: 2px solid #00FFEA;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 .rcx-avatar > img {
     border-radius: 50%;
 }
 
-.rcx-avatar--x42 {
+.rcx-sidebar-topbar__wrapper .rcx-avatar.rcx-avatar--x36,
+.rcx-sidebar-item__avatar .rcx-avatar.rcx-avatar--x36,
+.rcx-room-header .rcx-avatar.rcx-avatar--x36,
+.rcx-sidebar-topbar__wrapper .rcx-avatar.rcx-avatar--x36 {
+    width: 2.875rem;
+    height: 2.875rem;
+}
+
+.rcx-sidebar-topbar__wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
+.rcx-sidebar-item__avatar .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
+.rcx-room-header .rcx-avatar .rcx-avatar__element.rcx-avatar--x36,
+.rcx-sidebar-topbar__wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x36 {
     width: 2.625rem;
     height: 2.625rem;
 }
 
-.rcx-avatar--x46 {
-    width: 2.875rem;
-    height: 2.875rem;
+.messages-container-wrapper .rcx-avatar.rcx-avatar--x48 {
+    width: 90px;
+    height: 90px;
 }
 
-.rcx-avatar--x36 {
-    width: 2.875rem;
-    height: 2.875rem;
+.messages-container-wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x48 {
+    width: 86px;
+    height: 86px;
 }
 
 /*
  *  Messages
  */
 
+.messages-container-wrapper .message {
+    padding: 5px 50px 8px 82px;
+}
+
+.messages-container-wrapper .message .message-body-wrapper {
+    margin-top: 3px;
+}
+
+.messages-container-wrapper .message .thumb:not(.thumb-small) .avatar,
 .messages-container-wrapper .message .avatar {
     width: 46px;
     height: 46px;
     border-radius: 50%;
     border: 2px solid #00FFEA;
-    box-sizing: content-box;
+    box-sizing: border-box;
+}
+
+.messages-container-wrapper .message .thumb {
+    width: 46px;
+    height: 46px;
 }
 
 .messages-container-wrapper .message .avatar > img {
     border-radius: 50%;
-}
-
-.messages-container-wrapper .rcx-avatar--x48 {
-    width: 90px;
-    height: 90px;
 }
 
 .messages-container-wrapper .rcx-avatar-stack > .rcx-avatar > .rcx-avatar__element {
@@ -126,6 +146,43 @@
     background: #A3FFF8;
     border-radius: 4px;
     padding: 5px 24px;
+}
+
+.message .message-actions {
+    border: none;
+    border-radius: 7px;
+    padding: 7px;
+    right: 24px;
+    top: -16px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1));
+}
+
+.message .message-actions .rc-icon.message-actions__button-icon,
+.message .message-actions .rc-icon.message-actions__menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.message .message-actions .message-actions__button,
+.message .message-actions .message-actions__menu {
+    padding: 8px;
+}
+
+.message .message-actions .message-actions__button:hover,
+.message .message-actions .message-actions__menu:hover {
+    background-color: unset;
+}
+
+.message .message-actions .message-actions__button-icon,
+.message .message-actions .message-actions__menu-icon,
+.message .message-actions .message-actions__button:hover > svg > use,
+.message .message-actions .message-actions__menu:hover > svg > use {
+    fill: #00FFEA;
+}
+
+.message .message-actions .message-actions__button:hover > svg path,
+.message .message-actions .message-actions__menu:hover > svg path {
+    fill: inherit;
 }
 
 /*
