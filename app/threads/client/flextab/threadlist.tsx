@@ -20,7 +20,7 @@ const template = lazy(() => import('../../../../client/views/room/contextualBar/
 
 addAction('thread', (options) => {
 	const room = options.room as unknown as ISubscription;
-	const threadsEnabled = useSetting('Threads_enabled');
+	const threadsEnabled = false // useSetting('Threads_enabled');
 	return useMemo(() => (threadsEnabled ? {
 		groups: ['channel', 'group', 'direct', 'direct_multiple', 'team'],
 		id: 'thread',

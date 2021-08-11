@@ -63,6 +63,20 @@
 }
 
 /*
+ *  Toolbox actions
+ */
+
+.main-content .tool-box-action.rcx-button {
+    width: 1.75rem;
+    height: 1.5rem;
+}
+
+.main-content .tool-box-action.rcx-button .rc-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/*
  *  Avatar
  */
 

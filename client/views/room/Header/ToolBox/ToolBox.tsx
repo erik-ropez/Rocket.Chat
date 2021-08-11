@@ -32,10 +32,10 @@ const ToolBox: FC<ToolBoxProps> = ({ className }) => {
 	const actions = (Array.from(mapActions.values()) as ToolboxActionConfig[]).sort(
 		(a, b) => (a.order || 0) - (b.order || 0),
 	);
-	const visibleActions = isMobile ? [] : actions.slice(0, 6);
+	const visibleActions = isMobile ? [] : actions.slice(0, 3);
 
 	const hiddenActions: MenuProps['options'] = Object.fromEntries(
-		(isMobile ? actions : actions.slice(6)).map((item) => {
+		(isMobile ? actions : actions.slice(3)).map((item) => {
 			hiddenActionRenderers.current = {
 				...hiddenActionRenderers.current,
 				[item.id]: item.renderOption || renderMenuOption,
@@ -78,9 +78,8 @@ const ToolBox: FC<ToolBoxProps> = ({ className }) => {
 			{visibleActions.map(({ renderAction, id, icon, title, action = actionDefault }, index) => {
 				const props = {
 					id,
-					icon,
 					'title': t(title),
-					className,
+					className: className + ' tool-box-action',
 					index,
 					'info': id === tab?.id,
 					'data-toolbox': index,
@@ -88,11 +87,19 @@ const ToolBox: FC<ToolBoxProps> = ({ className }) => {
 					'key': id,
 				};
 				if (renderAction) {
+					props.icon = icon;
 					return renderAction(props);
 				}
-				return <Header.ToolBoxAction {...props} />;
+				const iconHref = `#icon-${icon}`;
+				return (
+					<Header.ToolBoxAction {...props} >
+						<svg class='rc-icon' aria-hidden='true'>
+							<use href={iconHref}></use>
+						</svg>
+					</Header.ToolBoxAction>
+				);
 			})}
-			{actions.length > 6 && (
+			{actions.length > 3 && (
 				<Menu
 					tiny={!isMobile}
 					title={t('Options')}
