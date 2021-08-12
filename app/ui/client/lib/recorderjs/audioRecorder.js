@@ -2,7 +2,7 @@ import { AudioEncoder } from './audioEncoder';
 
 const getUserMedia = ((navigator) => {
 	if (navigator.mediaDevices) {
-		return navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+		return navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices, {audio: true });
 	}
 
 	const legacyGetUserMedia = navigator.getUserMedia
