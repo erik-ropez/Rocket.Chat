@@ -49,6 +49,16 @@ Template.messageBoxAudioMessage.onCreated(async function() {
 
 Template.messageBoxAudioMessage.helpers({
 	isAllowed() {
+		console.log('messageBoxAudioMessage.isAllowed');
+		console.log({
+			'AudioRecorder.isSupported': AudioRecorder.isSupported(),
+			'!isMicrophoneDenied': !Template.instance().isMicrophoneDenied.get(),
+			'FileUpload_Enabled': settings.get('FileUpload_Enabled'),
+			'Message_AudioRecorderEnabled': settings.get('Message_AudioRecorderEnabled'),
+			'FileUpload_MediaTypeBlackList': (!settings.get('FileUpload_MediaTypeBlackList') || !settings.get('FileUpload_MediaTypeBlackList').match(/audio\/mp3|audio\/\*/i)),
+			'FileUpload_MediaTypeWhiteList': (!settings.get('FileUpload_MediaTypeWhiteList') || settings.get('FileUpload_MediaTypeWhiteList').match(/audio\/mp3|audio\/\*/i)),
+		});
+
 		return AudioRecorder.isSupported()
 			&& !Template.instance().isMicrophoneDenied.get()
 			&& settings.get('FileUpload_Enabled')
