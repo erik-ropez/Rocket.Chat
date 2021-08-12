@@ -23,7 +23,11 @@ Template.messageBoxAudioMessage.onCreated(async function() {
 		try {
 			const permissionStatus = await navigator.permissions.query({ name: 'microphone' });
 			this.isMicrophoneDenied.set(permissionStatus.state === 'denied');
+			console.log('permissionStatus.state');
+			console.log(permissionStatus.state);
 			permissionStatus.onchange = () => {
+				console.log('permissionStatus.state');
+				console.log(permissionStatus.state);
 				this.isMicrophoneDenied.set(permissionStatus.state === 'denied');
 			};
 			return;
@@ -60,7 +64,7 @@ Template.messageBoxAudioMessage.helpers({
 		});
 
 		return AudioRecorder.isSupported()
-			&& !Template.instance().isMicrophoneDenied.get()
+			// && !Template.instance().isMicrophoneDenied.get()
 			&& settings.get('FileUpload_Enabled')
 			&& settings.get('Message_AudioRecorderEnabled')
 			&& (!settings.get('FileUpload_MediaTypeBlackList')
