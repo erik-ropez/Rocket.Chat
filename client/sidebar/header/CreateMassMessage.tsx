@@ -10,6 +10,10 @@ import { ChatSubscription } from '../../../app/models/client';
 import { call, fireGlobalEvent } from '../../../app/ui-utils';
 import { promises } from '../../../app/promises/client';
 import axios from 'axios'
+import BlazeTemplate from '../../views/root/BlazeTemplate';
+
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { roomTypes } from '../../../app/utils/client';
 
 type Username = IUser['username'];
 
@@ -23,7 +27,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 	const [text, setText] = useState('');
 	const [usersEntry, setUsersEntry] = useState('manual');
 
-	const createDirect = useEndpointActionExperimental('POST', 'dm.create');
+	const messageBoxData = {};
 
 	const onChangeUsers = useMutableCallback((value: Username, action: string) => {
 		if (!action) {
@@ -37,6 +41,13 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 
 	const onCreate = useMutableCallback(async () => {
 		try {
+			const roomData = {
+				users,
+			}
+	
+			roomTypes.openRouteLink('m', roomData, FlowRouter.current().queryParams);
+
+			/*
 			let msg = text.trim();
 
 			for (let username of users) {
@@ -63,6 +74,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 					console.log(error)
 				}
 			}
+			*/
 
 			onClose();
 		} catch (error) {
@@ -150,18 +162,24 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 						</Box>
 					</>
 				)}
-
+{/* 
 				<Box mbs='x16' display='flex' flexDirection='column' width='full'>
 					<TextInput
 						placeholder={t('Message')}
 						onChange={handleMessageChange}
 					/>
 				</Box>
+
+				<Box mbs='x16' display='flex' flexDirection='column' width='full'>
+					<BlazeTemplate template='messageBox' data={messageBoxData} />
+				</Box> */}
+
+
 			</Modal.Content>
 			<Modal.Footer>
 				<ButtonGroup align='end'>
 					<Button onClick={onClose}>{t('Cancel')}</Button>
-					<Button disabled={users.length < 1 || text.length <= 0} onClick={onCreate} primary>
+					<Button disabled={users.length < 1} onClick={onCreate} primary>
 						{t('Send')}
 					</Button>
 				</ButtonGroup>

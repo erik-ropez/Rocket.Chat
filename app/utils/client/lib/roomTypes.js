@@ -176,10 +176,8 @@ export const roomTypes = new class RocketChatRoomTypes extends RoomTypesCommon {
 		let routeData = {};
 		if (this.roomTypes[roomType] && this.roomTypes[roomType].route && this.roomTypes[roomType].route.link) {
 			routeData = this.roomTypes[roomType].route.link(subData);
-		} else if (subData && subData.name) {
-			routeData = {
-				name: subData.name,
-			};
+		} else {
+			routeData = subData;
 		}
 
 		return FlowRouter.go(this.roomTypes[roomType].route.name, routeData, queryParams);
