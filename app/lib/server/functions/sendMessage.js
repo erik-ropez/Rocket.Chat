@@ -1,9 +1,10 @@
+import { Meteor } from 'meteor/meteor';
 import { Match, check } from 'meteor/check';
 import { parser } from '@rocket.chat/message-parser';
 
 import { settings } from '../../../settings';
 import { callbacks } from '../../../callbacks';
-import { Messages } from '../../../models';
+import { Messages, Users } from '../../../models';
 import { Apps } from '../../../apps/server';
 import { isURL, isRelativeURL } from '../../../utils/lib/isURL';
 import { FileUpload } from '../../../file-upload/server';
@@ -229,6 +230,7 @@ export const sendMessage = function(user, message, room, upsert = false) {
 		if (message._id && upsert) {
 			const { _id } = message;
 			delete message._id;
+
 			Messages.upsert({
 				_id,
 				'u._id': message.u._id,
@@ -239,7 +241,21 @@ export const sendMessage = function(user, message, room, upsert = false) {
 			if (messageAlreadyExists) {
 				return;
 			}
+
 			message._id = Messages.insert(message);
+
+			if (room.t == 'm') {
+				individualMessage = Object.assign({}, message)
+				for (const uid of room.uids) {
+					const user = Users.findOneById(uid);
+					const room = Meteor.call('createDirectMessage', user.username);
+					individualMessage.rid = room.rid;
+
+					delete individualMessage._id;
+
+					Messages.insert(individualMessage);
+				}
+			}
 		}
 
 		if (Apps && Apps.isLoaded()) {

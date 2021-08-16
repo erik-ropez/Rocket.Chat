@@ -25,6 +25,7 @@ import './methods/browseChannels';
 import './methods/canAccessRoom';
 import './methods/channelsList';
 import './methods/createDirectMessage';
+import './methods/createMassMessage';
 import './methods/deleteFileMessage';
 import './methods/deleteUser';
 import './methods/eraseRoom';

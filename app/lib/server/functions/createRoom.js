@@ -9,6 +9,7 @@ import { callbacks } from '../../../callbacks';
 import { Rooms, Subscriptions, Users } from '../../../models';
 import { getValidRoomName } from '../../../utils';
 import { createDirectRoom } from './createDirectRoom';
+import { createMassRoom } from './createMassRoom';
 import { Team } from '../../../../server/sdk';
 
 
@@ -19,18 +20,24 @@ export const createRoom = function(type, name, owner, members = [], readOnly, { 
 		return createDirectRoom(members, extraData, options);
 	}
 
-	name = s.trim(name);
 	owner = s.trim(owner);
-	members = [].concat(members);
-
-	if (!name) {
-		throw new Meteor.Error('error-invalid-name', 'Invalid name', { function: 'RocketChat.createRoom' });
-	}
 
 	owner = Users.findOneByUsernameIgnoringCase(owner, { fields: { username: 1 } });
 
 	if (!owner) {
 		throw new Meteor.Error('error-invalid-user', 'Invalid user', { function: 'RocketChat.createRoom' });
+	}
+
+	if (type === 'm') {
+		return createMassRoom(members, owner, extraData, options);
+	}
+
+	name = s.trim(name);
+
+	members = [].concat(members);
+
+	if (!name) {
+		throw new Meteor.Error('error-invalid-name', 'Invalid name', { function: 'RocketChat.createRoom' });
 	}
 
 	if (!_.contains(members, owner.username)) {

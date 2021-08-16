@@ -13,16 +13,16 @@ export class MassMessageRoomRoute extends RoomTypeRouteConfig {
 	constructor() {
 		super({
 			name: 'mass',
-			path: '/mass',
+			path: '/mass/:rid/:tab?/:context?',
 		});
 	}
 
 	action(params) {
-		return openRoom('m', 'Mass');
+		return openRoom('m', params.rid);
 	}
 
 	link(sub) {
-		return { };
+		return { rid: sub.rid || sub._id || sub.name };
 	}
 }
 
@@ -31,6 +31,7 @@ export class MassMessageRoomType extends RoomTypeConfig {
 		super({
 			identifier: 'm',
 			order: 50,
+			icon: 'at',
 			label: 'Mass_Messages',
 			route: new MassMessageRoomRoute(),
 		});
@@ -45,6 +46,10 @@ export class MassMessageRoomType extends RoomTypeConfig {
 	}
 
 	findRoom(identifier) {
+		// if (!hasPermission('view-d-room')) {
+		// 	return null;
+		// }
+
 		const query = {
 			t: 'm',
 			$or: [
@@ -109,11 +114,30 @@ export class MassMessageRoomType extends RoomTypeConfig {
 	}
 
 	allowRoomSettingChange(room, setting) {
-		return false;
+		switch (setting) {
+			case RoomSettingsEnum.TYPE:
+			case RoomSettingsEnum.NAME:
+			case RoomSettingsEnum.SYSTEM_MESSAGES:
+			case RoomSettingsEnum.DESCRIPTION:
+			case RoomSettingsEnum.READ_ONLY:
+			case RoomSettingsEnum.REACT_WHEN_READ_ONLY:
+			case RoomSettingsEnum.ARCHIVE_OR_UNARCHIVE:
+			case RoomSettingsEnum.JOIN_CODE:
+				return false;
+			case RoomSettingsEnum.E2E:
+				return settings.get('E2E_Enable') === true;
+			default:
+				return true;
+		}
 	}
 
 	allowMemberAction(room, action) {
-		return false;
+		switch (action) {
+			case RoomMemberActions.BLOCK:
+				return !this.isGroupChat(room);
+			default:
+				return false;
+		}
 	}
 
 	enableMembersListProfile() {
@@ -188,10 +212,15 @@ export class MassMessageRoomType extends RoomTypeConfig {
 	}
 
 	includeInDashboard() {
-		return false;
+		return true;
 	}
 
 	isGroupChat(room) {
-		return true;
+		return room && room.uids && room.uids.length > 2;
+	}
+
+	canSendMessage(roomId) {
+		const room = ChatRoom.findOne({ _id: roomId, t: 'm' }, { fields: { u: 1 } });
+		return room.u._id == Meteor.userId();
 	}
 }

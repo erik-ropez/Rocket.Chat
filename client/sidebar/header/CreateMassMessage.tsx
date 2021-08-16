@@ -6,14 +6,9 @@ import { IUser } from '../../../definition/IUser';
 import UserAutoCompleteMultiple from '../../components/UserAutoCompleteMultiple';
 import { useTranslation } from '../../contexts/TranslationContext';
 import { useEndpointActionExperimental } from '../../hooks/useEndpointAction';
-import { ChatSubscription } from '../../../app/models/client';
-import { call, fireGlobalEvent } from '../../../app/ui-utils';
-import { promises } from '../../../app/promises/client';
-import axios from 'axios'
-import BlazeTemplate from '../../views/root/BlazeTemplate';
-
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { roomTypes } from '../../../app/utils/client';
+import { fireGlobalEvent } from '../../../app/ui-utils';
+import axios from 'axios';
+import { goToRoomById } from '../../lib/goToRoomById';
 
 type Username = IUser['username'];
 
@@ -24,10 +19,9 @@ type CreateMassMessageProps = {
 const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 	const t = useTranslation();
 	const [users, setUsers] = useState<Array<Username>>([]);
-	const [text, setText] = useState('');
 	const [usersEntry, setUsersEntry] = useState('manual');
 
-	const messageBoxData = {};
+	const createMass = useEndpointActionExperimental('POST', 'mm.create');
 
 	const onChangeUsers = useMutableCallback((value: Username, action: string) => {
 		if (!action) {
@@ -41,50 +35,16 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 
 	const onCreate = useMutableCallback(async () => {
 		try {
-			const roomData = {
-				users,
-			}
-	
-			roomTypes.openRouteLink('m', roomData, FlowRouter.current().queryParams);
+			const {
+				room: { rid },
+			} = await createMass({ usernames: users.join(',') });
 
-			/*
-			let msg = text.trim();
-
-			for (let username of users) {
-				const { room: { rid } } = await createDirect({ usernames: username });
-
-				if (!ChatSubscription.findOne({ rid })) {
-					await call('joinRoom', rid);
-				}
-
-				const tmid = undefined;
-				const tshow = undefined;
-	
-				const message = await promises.run('onClientBeforeSendMessage', {
-					_id: Random.id(),
-					rid,
-					tmid,
-					tshow,
-					msg,
-				});
-	
-				try {
-					await call('sendMessage', message);
-				} catch (error) {
-					console.log(error)
-				}
-			}
-			*/
-
+			goToRoomById(rid);
 			onClose();
 		} catch (error) {
 			console.warn(error);
 		}
 	});
-
-	const handleMessageChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		setText(event.currentTarget.value);
-	}, []);
 
 	const subscribersEventListener = async (e) => {
 		if (typeof e.data !== 'object' || typeof e.data.externalCommand !== 'string') {
@@ -162,25 +122,13 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 						</Box>
 					</>
 				)}
-{/* 
-				<Box mbs='x16' display='flex' flexDirection='column' width='full'>
-					<TextInput
-						placeholder={t('Message')}
-						onChange={handleMessageChange}
-					/>
-				</Box>
-
-				<Box mbs='x16' display='flex' flexDirection='column' width='full'>
-					<BlazeTemplate template='messageBox' data={messageBoxData} />
-				</Box> */}
-
 
 			</Modal.Content>
 			<Modal.Footer>
 				<ButtonGroup align='end'>
 					<Button onClick={onClose}>{t('Cancel')}</Button>
 					<Button disabled={users.length < 1} onClick={onCreate} primary>
-						{t('Send')}
+						{t('Prepare')}
 					</Button>
 				</ButtonGroup>
 			</Modal.Footer>

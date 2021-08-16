@@ -736,6 +736,16 @@ export class Rooms extends Base {
 		return this.findOne(query, options);
 	}
 
+	findOneMassRoomContainingAllUserIDs(uid, uids, options) {
+		const query = {
+			t: 'm',
+			uids: { $size: uids.length, $all: uids },
+			'u._id': uid,
+		};
+
+		return this.findOne(query, options);
+	}
+
 	findByTypeAndName(type, name, options) {
 		const query = {
 			name,
