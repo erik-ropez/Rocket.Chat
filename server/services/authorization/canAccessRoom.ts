@@ -70,20 +70,11 @@ const roomAccessValidators: RoomAccessValidator[] = [
 	},
 
 	async function _validateAccessToMessMessageRoom(room, user): Promise<boolean> {
-		return true;
-
-		// TODO: Implement proper access check (by creator ID)
-
-		if (!room?.prid) {
-			return false;
+		if (room?.t == 'm') {
+			return room?.u?._id == user?._id;
 		}
 
-		const parentRoom = await Rooms.findOne(room.prid);
-		if (!parentRoom) {
-			return false;
-		}
-
-		return Authorization.canAccessRoom(parentRoom, user);
+		return false;
 	},
 
 	canAccessRoomLivechat,
