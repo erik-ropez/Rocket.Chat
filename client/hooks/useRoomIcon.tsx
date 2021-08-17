@@ -44,6 +44,8 @@ export const useRoomIcon = (room: IRoom): ReactNode | { name: string; color?: st
 				);
 			}
 			return { name: 'at' };
+		case 'm':
+			return { name: 'baloons' };
 		default:
 			return null;
 	}

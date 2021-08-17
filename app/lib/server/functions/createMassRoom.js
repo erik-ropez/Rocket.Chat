@@ -15,7 +15,7 @@ const generateSubscription = (fname, name, user, extra) => ({
 	...user.customFields && { customFields: user.customFields },
 	...getDefaultSubscriptionPref(user),
 	...extra,
-	t: 'd',
+	t: 'm',
 	fname,
 	name,
 	u: {

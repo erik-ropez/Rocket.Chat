@@ -13,9 +13,11 @@ const RoomForeword = ({ _id: rid }) => {
 	const user = useUser();
 	const room = useReactiveValue(useCallback(() => Rooms.findOne({ _id: rid }), [rid]));
 
-	if (room?.t !== 'd') {
+	if (room?.t !== 'd' && room?.t !== 'm') {
 		return <>{t('Start_of_conversation')}</>;
 	}
+
+	const title = room?.t === 'd' ? t('Direct_message_you_have_joined') : t('Mass_messages_about_to_sent')
 
 	const usernames = room.usernames.filter((username) => username !== user.username);
 	if (usernames.length < 1) {
@@ -46,7 +48,7 @@ const RoomForeword = ({ _id: rid }) => {
 				</Margins>
 			</Flex.Item>
 			<Box color='default' flexGrow={1}>
-				{t('Direct_message_you_have_joined')}
+				{title}
 			</Box>
 			<Box is='div' mb='x16' flexGrow={1} display='flex' justifyContent='center'>
 				{usernames.map((username, index) => (

@@ -33,8 +33,10 @@ Meteor.methods({
 		}
 		message = callbacks.run('beforeSaveMessage', message);
 		promises.run('onClientMessageReceived', message).then(function(message) {
-			ChatMessage.insert(message);
-			return callbacks.run('afterSaveMessage', message);
+			if (message) {
+				ChatMessage.insert(message);
+				return callbacks.run('afterSaveMessage', message);
+			}
 		});
 	},
 });

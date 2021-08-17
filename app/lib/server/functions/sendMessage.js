@@ -242,19 +242,21 @@ export const sendMessage = function(user, message, room, upsert = false) {
 				return;
 			}
 
-			message._id = Messages.insert(message);
-
 			if (room.t == 'm') {
-				individualMessage = Object.assign({}, message)
+				const massMessage = Object.assign({}, message)
 				for (const uid of room.uids) {
-					const user = Users.findOneById(uid);
-					const room = Meteor.call('createDirectMessage', user.username);
-					individualMessage.rid = room.rid;
+					const massMessageUser = Users.findOneById(uid);
+					const massMessageRoom = Meteor.call('createDirectMessage', massMessageUser.username);
+					massMessage.rid = massMessageRoom.rid;
 
-					delete individualMessage._id;
+					delete massMessage._id;
 
-					Messages.insert(individualMessage);
+					Messages.insert(massMessage);
 				}
+
+				return;
+			} else {
+				message._id = Messages.insert(message);
 			}
 		}
 

@@ -4641,9 +4641,12 @@
   "Your_TOTP_has_been_reset": "Your Two Factor TOTP has been reset.",
   "Your_workspace_is_ready": "Your workspace is ready to use 🎉",
 
+  "Mass_Message": "Mass Messages",
   "Mass_Messages": "Mass Messages",
   "Mass_message_manual_entry": "Manual entry",
   "Mass_message_subscribers": "Subscribers",
   "Mass_message_subscribers_description": "You are about to send messages to all of your subscribers.",
-  "Mass_message_manual_entry_description": "You are about to send messages to multiple users. Add the ones you would like to talk."
+  "Mass_message_manual_entry_description": "You are about to send messages to multiple users. Add the ones you would like to talk.",
+  "Mass_messages_about_to_sent": "You are about to send message to following users",
+  "Mass_Message_was_sent": "Mass message was sent."
 }
