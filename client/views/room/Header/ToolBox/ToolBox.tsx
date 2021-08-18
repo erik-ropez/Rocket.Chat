@@ -78,6 +78,7 @@ const ToolBox: FC<ToolBoxProps> = ({ className }) => {
 			{visibleActions.map(({ renderAction, id, icon, title, action = actionDefault }, index) => {
 				const props = {
 					id,
+					icon,
 					'title': t(title),
 					className: className + ' tool-box-action',
 					index,
@@ -87,13 +88,12 @@ const ToolBox: FC<ToolBoxProps> = ({ className }) => {
 					'key': id,
 				};
 				if (renderAction) {
-					props.icon = icon;
 					return renderAction(props);
 				}
 				const iconHref = `#icon-${icon}`;
 				return (
 					<Header.ToolBoxAction {...props} >
-						<svg class='rc-icon' aria-hidden='true'>
+						<svg className='rc-icon' aria-hidden='true'>
 							<use href={iconHref}></use>
 						</svg>
 					</Header.ToolBoxAction>

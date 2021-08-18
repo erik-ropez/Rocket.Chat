@@ -76,6 +76,10 @@
     height: 1.5rem;
 }
 
+.main-content .tool-box-action.rcx-button i {
+    display: none;
+}
+
 /*
  *  Avatar
  */
