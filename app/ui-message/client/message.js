@@ -117,6 +117,10 @@ Template.message.helpers({
 		const { msg } = this;
 		return msg.attachments?.length;
 	},
+	locked() {
+		const { msg } = this;
+		return msg.ppv?.locked;
+	},
 	roleTags() {
 		const { msg, hideRoles, settings } = this;
 		if (settings.hideRoles || hideRoles) {

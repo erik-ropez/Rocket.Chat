@@ -7,4 +7,7 @@ export type MessageAttachmentBase = {
 
 	title_link?: string;
 	title_link_download?: boolean;
+
+	message?: Object | undefined | null;
+	locked?: Boolean | undefined;
 };

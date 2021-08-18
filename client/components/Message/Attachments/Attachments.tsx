@@ -5,9 +5,11 @@ import { MessageAttachmentBase } from '../../../../definition/IMessage/MessageAt
 import { useBlockRendered } from '../hooks/useBlockRendered';
 import Item from './Item';
 
-const Attachments: FC<{ attachments: Array<MessageAttachmentBase>; file?: FileProp }> = ({
+const Attachments: FC<{ attachments: Array<MessageAttachmentBase>; file?: FileProp; message?: Object | undefined | null; locked?: Boolean | undefined }> = ({
 	attachments = null,
 	file,
+	message = null,
+	locked = false,
 }): any => {
 	const { className, ref } = useBlockRendered();
 	return (
@@ -15,7 +17,7 @@ const Attachments: FC<{ attachments: Array<MessageAttachmentBase>; file?: FilePr
 			<div className={className} ref={ref as any} />
 			{attachments &&
 				attachments.map((attachment, index) => (
-					<Item key={index} file={file} attachment={attachment} />
+					<Item key={index} file={file} attachment={attachment} message={message} locked={locked} />
 				))}
 		</>
 	);

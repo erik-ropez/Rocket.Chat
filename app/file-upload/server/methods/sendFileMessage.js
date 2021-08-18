@@ -29,6 +29,7 @@ Meteor.methods({
 			groupable: Match.Optional(Boolean),
 			msg: Match.Optional(String),
 			tmid: Match.Optional(String),
+			price: Match.Optional(String),
 		});
 
 		Uploads.updateFileComplete(file._id, Meteor.userId(), _.omit(file, '_id'));
@@ -81,6 +82,16 @@ Meteor.methods({
 			groupable: false,
 			attachments: [attachment],
 		}, msgData);
+
+		if (msgData.price) {
+			msg.ppv = {
+				locked: true,
+				price: msgData.price,
+				// _content: Object
+			};
+
+			// TODO: Modify message so that locked data is not returned to frontend (store in ppv._content or _ppvContent)
+		}
 
 		msg = Meteor.call('sendMessage', msg);
 

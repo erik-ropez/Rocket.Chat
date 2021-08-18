@@ -16,11 +16,12 @@ const readAsDataURL = (file, callback) => {
 	return reader.readAsDataURL(file);
 };
 
-export const uploadFileWithMessage = async (rid, tmid, { description, fileName, msg, file }) => {
+export const uploadFileWithMessage = async (rid, tmid, { description, fileName, msg, file, price }) => {
 	const data = new FormData();
 	description	&& data.append('description', description);
 	msg	&& data.append('msg', msg);
 	tmid && data.append('tmid', tmid);
+	price && data.append('price', price);
 	data.append('file', file.file, fileName);
 
 	const uploads = Session.get('uploading') || [];
@@ -118,6 +119,9 @@ const getAudioUploadPreview = (file, preview) => `\
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
 	</div>
+	<div class="rc-input__wrapper">
+		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
+	</div>
 </div>`;
 
 const getVideoUploadPreview = (file, preview) => `\
@@ -134,6 +138,9 @@ const getVideoUploadPreview = (file, preview) => `\
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
 	</div>
+	<div class="rc-input__wrapper">
+		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
+	</div>
 </div>`;
 
 const getImageUploadPreview = (file, preview) => `\
@@ -146,6 +153,9 @@ const getImageUploadPreview = (file, preview) => `\
 	</div>
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
+	</div>
+	<div class="rc-input__wrapper">
+		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
 	</div>
 </div>`;
 
@@ -181,6 +191,9 @@ const getGenericUploadPreview = (file) => `\
 </div>
 <div class="rc-input__wrapper">
 <input class="rc-input__element" id='file-description' style='display: inherit;' value='' autoFocus placeholder='${ t('Upload_file_description') }'>
+</div>
+<div class="rc-input__wrapper">
+<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
 </div>
 </div>`;
 
@@ -273,6 +286,7 @@ export const fileUpload = async (files, input, { rid, tmid }) => {
 				fileName,
 				msg: msg || undefined,
 				file,
+				price: document.getElementById('file-price').value || undefined,
 			});
 
 			uploadNextFile();

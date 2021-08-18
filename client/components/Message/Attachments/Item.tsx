@@ -8,12 +8,14 @@ import DefaultAttachment from './DefaultAttachment';
 import { FileAttachment } from './Files';
 import { QuoteAttachment } from './QuoteAttachment';
 
-const Item: FC<{ attachment: MessageAttachmentBase; file?: FileProp | undefined }> = ({
+const Item: FC<{ attachment: MessageAttachmentBase; file?: FileProp | undefined; message?: Object | undefined | null; locked?: Boolean | undefined }> = ({
 	attachment,
 	file,
+	message,
+	locked,
 }) => {
 	if (isFileAttachment(attachment) && file) {
-		return <FileAttachment {...attachment} file={file} />;
+		return <FileAttachment {...attachment} file={file} message={message} locked={locked} />;
 	}
 
 	if (isQuoteAttachment(attachment)) {

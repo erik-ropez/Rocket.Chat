@@ -123,7 +123,7 @@
 				{{/each}}
 			{{/if}}
 			{{#if hasAttachments}}
-				{{> reactAttachments attachments=msg.attachments file=msg.file }}
+				{{> reactAttachments attachments=msg.attachments file=msg.file locked=locked message=msg }}
 			{{/if}}
 
 
