@@ -283,7 +283,7 @@ const SearchList = forwardRef(function SearchList({ onClose }, ref) {
 		>
 			<div class="sidebar-search-input">
 				<Sidebar.TopBar.Section role='search' is='form'>
-					<svg class="rc-icon" aria-hidden="true">
+					<svg className="rc-icon" aria-hidden="true">
 						<use href="#icon-magnifier"></use>
 					</svg>
 					<TextInput

@@ -29,7 +29,7 @@ const CreateRoom = (props) => {
 
 	return showCreate ? (
 		<button type="button" onClick={onClick} {...props}>
-			<svg class="rc-icon" aria-hidden="true">
+			<svg className="rc-icon" aria-hidden="true">
 				<use href="#icon-edit-rounded"></use>
 			</svg>
 		</button>

@@ -18,7 +18,7 @@ const onClick = (e) => {
 
 const Sort = (props) => (
 	<button type="button" onClick={onClick} {...props}>
-		<svg class="rc-icon" aria-hidden="true">
+		<svg className="rc-icon" aria-hidden="true">
 			<use href="#icon-sort"></use>
 		</svg>
 	</button>

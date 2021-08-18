@@ -41,7 +41,7 @@ const Search = (props) => {
 	return (
 		<>
 			<button type="button" onClick={openSearch} {...props}>
-				<svg class="rc-icon" aria-hidden="true">
+				<svg className="rc-icon" aria-hidden="true">
 					<use href="#icon-magnifier"></use>
 				</svg>
 			</button>
