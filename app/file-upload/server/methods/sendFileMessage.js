@@ -87,10 +87,35 @@ Meteor.methods({
 			msg.ppv = {
 				locked: true,
 				price: msgData.price,
-				// _content: Object
 			};
 
-			// TODO: Modify message so that locked data is not returned to frontend (store in ppv._content or _ppvContent)
+			delete msgData.price;
+
+			msg._ppvContent = {
+				file: {
+					_id: msg.file._id,
+				},
+				attachments: [],
+			};
+
+			delete msg.file._id;
+
+			for (const attachment of msg.attachments) {
+				const ppvAttachment = {
+					title_link: attachment.title_link,
+				};
+
+				delete attachment.title_link;
+
+				for (const prop of ['image_url', 'video_url', 'audio_url']) {
+					if (attachment[prop]) {
+						ppvAttachment[prop] = attachment[prop];
+						attachment[prop] = '';
+					}
+				}
+
+				msg._ppvContent.attachments.push(ppvAttachment);
+			}
 		}
 
 		msg = Meteor.call('sendMessage', msg);

@@ -16,6 +16,10 @@ function getNameOfUsername(users, username) {
 }
 
 export const normalizeMessagesForUser = (messages, uid) => {
+	messages.forEach((message) => {
+		delete message._ppvContent;
+	});
+
 	// if not using real names, there is nothing else to do
 	if (!settings.get('UI_Use_Real_Name')) {
 		return messages.map((message) => filterStarred(message, uid));

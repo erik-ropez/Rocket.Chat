@@ -1,10 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, MouseEvent } from 'react';
+import { Button } from '@rocket.chat/fuselage';
 
 import { AudioAttachmentProps } from '../../../../../definition/IMessage/MessageAttachment/Files/AudioAttachmentProps';
 import MarkdownText from '../../../MarkdownText';
 import Attachment from '../Attachment';
 import { useMediaUrl } from '../context/AttachmentContext';
 import { useCollapse } from '../hooks/useCollapse';
+
+import { fireGlobalEvent } from '../../../../../app/ui-utils';
 
 export const AudioAttachment: FC<AudioAttachmentProps> = ({
 	title,
@@ -15,9 +18,17 @@ export const AudioAttachment: FC<AudioAttachmentProps> = ({
 	description,
 	title_link: link,
 	title_link_download: hasDownload,
+	message,
+	locked,
 }) => {
 	const [collapsed, collapse] = useCollapse(collapsedDefault);
 	const getURL = useMediaUrl();
+
+	const onPpvClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
+		event.preventDefault();
+		return fireGlobalEvent('click-pay-per-view', { message });
+	}, [message]);
+
 	return (
 		<Attachment>
 			<MarkdownText parseEmoji variant='inline' content={description} />
@@ -25,13 +36,18 @@ export const AudioAttachment: FC<AudioAttachmentProps> = ({
 				<Attachment.Title>{title}</Attachment.Title>
 				{size && <Attachment.Size size={size} />}
 				{collapse}
-				{hasDownload && link && <Attachment.Download title={title} href={getURL(link)} />}
+				{hasDownload && !locked && link && <Attachment.Download title={title} href={getURL(link)} />}
 			</Attachment.Row>
 			{!collapsed && (
 				<Attachment.Content border='none'>
-					<audio controls>
-						<source src={getURL(url)} type={type} />
-					</audio>
+					{locked && (
+						<Button onClick={onPpvClick} borderWidth='0' p='0'>Unlock</Button>
+					)}
+					{!locked && (
+						<audio controls>
+							<source src={getURL(url)} type={type} />
+						</audio>
+					)}
 				</Attachment.Content>
 			)}
 		</Attachment>

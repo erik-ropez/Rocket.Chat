@@ -33,13 +33,9 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 
 	const previewUrl = `data:image/png;base64,${imagePreview}`;
 
-	const onClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
+	const onPpvClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
 		event.preventDefault();
-		console.log('image click');
-
-		return fireGlobalEvent('click-pay-per-view', {
-			message,
-		});
+		return fireGlobalEvent('click-pay-per-view', { message });
 	}, [message]);
 
 	return (
@@ -54,7 +50,7 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 			{!collapsed && (
 				<Attachment.Content>
 					{locked && (
-						<Button onClick={onClick} borderWidth='0' p='0'>
+						<Button onClick={onPpvClick} borderWidth='0' p='0'>
 							<Image
 								{...imageDimensions}
 								loadImage={loadImage}

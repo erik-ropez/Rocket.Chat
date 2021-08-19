@@ -25,6 +25,10 @@ const { DISABLE_MESSAGE_PARSER = 'false' } = process.env;
 const ValidFullURLParam = Match.Where((value) => {
 	check(value, String);
 
+	if (!value.length) {
+		return true;
+	}
+
 	if (!isURL(value) && !value.startsWith(FileUpload.getPath())) {
 		throw new Error('Invalid href value provided');
 	}

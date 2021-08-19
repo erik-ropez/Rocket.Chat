@@ -41,6 +41,25 @@ Meteor.methods({
 		message.ppv = originalMessage.ppv;
 		message.ppv.locked = false;
 
+		const ppvContent = originalMessage._ppvContent;
+
+		message.file = originalMessage.file;
+		message.file._id = ppvContent.file._id;
+
+		message.attachments = originalMessage.attachments;
+		for (const attachmentIndex in ppvContent.attachments) {
+			const attachment = message.attachments[attachmentIndex];
+			const ppvAttachment = ppvContent.attachments[attachmentIndex];
+
+			attachment.title_link = ppvAttachment.title_link;
+
+			for (const prop of ['image_url', 'video_url', 'audio_url']) {
+				if (ppvAttachment[prop]) {
+					attachment[prop] = ppvAttachment[prop];
+				}
+			}
+		}
+
 		const tempid = message._id;
 		delete message._id;
 
