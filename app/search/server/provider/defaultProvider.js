@@ -26,7 +26,7 @@ class DefaultProvider extends SearchProvider {
 	}
 
 	get i18nDescription() {
-		return 'You_can_search_using_RegExp_eg';
+		// return 'You_can_search_using_RegExp_eg';
 	}
 
 	/**

@@ -8,6 +8,7 @@ import Info from './Info';
 import Roles from './Roles';
 import UserCardContainer from './UserCardContainer';
 import Username from './Username';
+import { settings } from '/app/settings/client';
 
 const clampStyle = {
 	display: '-webkit-box',
@@ -49,6 +50,8 @@ const UserCard = forwardRef(function UserCard(
 	},
 	ref,
 ) {
+	const openHref = `${settings.get('Gmh_Url')}/user/${username}`;
+
 	return (
 		<UserCardContainer className={className} ref={ref} style={style}>
 			<Box pb='x24' pi='x12'>
@@ -83,9 +86,9 @@ const UserCard = forwardRef(function UserCard(
 						{typeof bio === 'string' ? <MarkdownText content={bio} /> : bio}
 					</Info>
 				)}
-				{open && (
+				{openHref && (
 					<Info mb="x4" className="user-card-info-open-profile">
-						<a onClick={open}>{t('See_full_profile')}</a>
+						<a href={openHref} target="_blank">{t('See_full_profile')}</a>
 					</Info>
 				)}
 			</Box>

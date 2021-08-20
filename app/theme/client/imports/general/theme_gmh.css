@@ -54,6 +54,13 @@
     background-color: #a5fef7;
 }
 
+.rcx-sidebar-item__menu-wraper .rcx-button--ghost:hover,
+.rcx-sidebar-item__menu-wraper .rcx-button--ghost.hover,
+.rcx-sidebar-item__menu-wraper .rcx-button--ghost.is-hovered {
+    border-color: white;
+    background-color: white;
+}
+
 /*
  *  Home page
  */
@@ -93,6 +100,10 @@
 
 .rcx-avatar > img {
     border-radius: 50%;
+}
+
+.rcx-avatar .rcx-avatar__element {
+    background-color: #DEE0E0;
 }
 
 .rcx-sidebar-item__avatar .rcx-avatar.rcx-avatar--x16 {
@@ -251,9 +262,14 @@
  *  User card
  */
 
-.rcx-user-card .rcx-avatar--x124 {
+.rcx-user-card .rcx-avatar.rcx-avatar--x124 {
     width: 90px;
     height: 90px;
+}
+
+.rcx-user-card .rcx-avatar .rcx-avatar__element.rcx-avatar--x124 {
+    width: 86px;
+    height: 86px;
 }
 
 .rcx-user-card .rcx-icon--name-cross {

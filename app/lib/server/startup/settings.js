@@ -834,6 +834,10 @@ settings.addGroup('General', function() {
 			order: 0,
 		},
 	});
+	this.add('Gmh_Url', '', {
+		type: 'string',
+		public: true,
+	});
 	this.add('Document_Domain', '', {
 		type: 'string',
 		public: true,
