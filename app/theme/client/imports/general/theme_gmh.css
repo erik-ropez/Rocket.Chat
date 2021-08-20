@@ -102,8 +102,10 @@
     border-radius: 50%;
 }
 
+.avatar .avatar-image,
 .rcx-avatar .rcx-avatar__element {
     background-color: #DEE0E0;
+    object-fit: cover;
 }
 
 .rcx-sidebar-item__avatar .rcx-avatar.rcx-avatar--x16 {
