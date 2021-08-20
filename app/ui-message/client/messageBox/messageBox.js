@@ -249,6 +249,12 @@ Template.messageBox.helpers({
 
 		return roomTypes.verifyCanSendMessage(rid);
 	},
+	canSendTip() {
+		const { rid } = Template.currentData();
+		const room = Session.get(`roomData${ rid }`);
+		return room.t == 'd' && room.uids.length == 2;
+		// TODO: Check if other user is creator.
+	},
 	actions() {
 		const actionGroups = messageBox.actions.get();
 		return Object.values(actionGroups)

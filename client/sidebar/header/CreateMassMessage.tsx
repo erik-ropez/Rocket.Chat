@@ -105,7 +105,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 								onChange={handleUsersEntryChange}
 								checked={usersEntry === 'subscribers'}
 							/>
-							<Field.Label htmlFor='usersSubscribers'>{t('Mass_message_subscribers')}</Field.Label>
+							<Field.Label htmlFor='usersSubscribers'>{t('Mass_message_all_subscribers')}</Field.Label>
 						</Field.Row>
 					</Field>
 				</Box>
@@ -118,7 +118,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 					<>
 						<Box mbs='x16'>{t('Mass_message_manual_entry_description')}</Box>
 						<Box mbs='x16' display='flex' flexDirection='column' width='full'>
-							<UserAutoCompleteMultiple value={users} onChange={onChangeUsers} />
+							<UserAutoCompleteMultiple value={users} onChange={onChangeUsers} excludeself='true' />
 						</Box>
 					</>
 				)}
@@ -128,7 +128,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 				<ButtonGroup align='end'>
 					<Button onClick={onClose}>{t('Cancel')}</Button>
 					<Button disabled={users.length < 1} onClick={onCreate} primary>
-						{t('Prepare')}
+						{t('Create_Mass_Message')}
 					</Button>
 				</ButtonGroup>
 			</Modal.Footer>

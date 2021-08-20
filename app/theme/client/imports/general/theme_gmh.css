@@ -116,6 +116,16 @@
     height: 0.75rem;
 }
 
+.rcx-avatar.rcx-avatar--x20 {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.rcx-avatar .rcx-avatar__element.rcx-avatar--x20 {
+    width: 1rem;
+    height: 1rem;
+}
+
 .rcx-sidebar-item__avatar .rcx-avatar.rcx-avatar--x28 {
     width: 1.75rem;
     height: 1.75rem;
@@ -308,6 +318,40 @@
 }
 
 /*
+ *  Room error
+ */
+
+.container-bars.show {
+    margin: 0;
+    box-shadow: none;
+}
+
+.container-bars.show .upload-progress {
+    display: flex;
+    justify-content: space-between;
+    height: 54px;
+    border-bottom: 7px solid #FFA700;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-color: #FFE5B3;
+    align-items: center;
+    color: #1C1C1C;
+    padding: 0 36px;
+}
+
+.container-bars.show .upload-progress .upload-progress-text {
+    padding: 0;
+    font-weight: normal;
+    height: unset;
+}
+
+.container-bars.show .upload-progress .upload-progress-close {
+    text-transform: capitalize;
+    text-decoration-line: underline;
+    color: #00A69A;
+}
+
+/*
  *  User dropdown
  */
 
@@ -363,4 +407,12 @@
 .rcx-modal .rcx-modal__footer .rcx-button.rcx-button--primary {
     border-color: #00FFEA;
     background: #00FFEA;
+}
+
+/*
+ *  Autocomplete input
+ */
+
+.rcx-autocomplete .rcx-icon.rcx-icon--name-cross {
+    display: none;
 }

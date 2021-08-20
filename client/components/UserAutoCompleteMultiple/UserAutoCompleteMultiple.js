@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 import { AutoComplete, Box, Option, Chip } from '@rocket.chat/fuselage';
 import { useMutableCallback, useDebouncedValue } from '@rocket.chat/fuselage-hooks';
 import React, { memo, useMemo, useState } from 'react';
@@ -9,6 +11,10 @@ import Avatar from './Avatar';
 const query = (term = '') => ({ selector: JSON.stringify({ term }) });
 
 const UserAutoCompleteMultiple = (props) => {
+	const excludeSelf = props.excludeself || false;
+	delete props.excludeself;
+	const selfUsername = Meteor.user().username;
+
 	const [filter, setFilter] = useState('');
 	const debouncedFilter = useDebouncedValue(filter, 1000);
 	const { value: data } = useEndpointData(
@@ -16,7 +22,9 @@ const UserAutoCompleteMultiple = (props) => {
 		useMemo(() => query(debouncedFilter), [debouncedFilter]),
 	);
 	const options = useMemo(
-		() => (data && data.items.map((user) => ({ value: user.username, label: user.name }))) || [],
+		() => (data && data.items
+			.filter((user) => !excludeSelf || (user.username != selfUsername))
+			.map((user) => ({ value: user.username, label: user.name }))) || [],
 		[data],
 	);
 	const onClickRemove = useMutableCallback((e) => {
