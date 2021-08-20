@@ -418,3 +418,30 @@
 .rcx-autocomplete .rcx-icon.rcx-icon--name-cross {
     display: none;
 }
+
+/*
+ *  Unlock
+ */
+
+.rcx-message-attachment .unlock-button-container {
+    position: relative;
+}
+
+.rcx-message-attachment .unlock-button-container .unlock-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.rcx-message-attachment .unlock-button {
+    color: #1C1C1C;
+    text-transform: uppercase;
+    background-color: #00FFEA;
+    padding: 0 38px !important;
+    border-radius: 19px;
+    line-height: 38px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}

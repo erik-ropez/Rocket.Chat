@@ -10,4 +10,5 @@ export type MessageAttachmentBase = {
 
 	message?: Object | undefined | null;
 	locked?: Boolean | undefined;
+	owner?: Boolean | undefined;
 };

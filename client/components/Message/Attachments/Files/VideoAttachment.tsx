@@ -20,6 +20,7 @@ export const VideoAttachment: FC<VideoAttachmentProps> = ({
 	title_link_download: hasDownload,
 	message,
 	locked,
+	owner,
 }) => {
 	const [collapsed, collapse] = useCollapse(collapsedDefault);
 	// useTranslation();
@@ -28,6 +29,14 @@ export const VideoAttachment: FC<VideoAttachmentProps> = ({
 	const onPpvClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
 		event.preventDefault();
 		return fireGlobalEvent('click-pay-per-view', { message });
+	}, [message]);
+
+	const onUnlockClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
+		event.preventDefault();
+		Meteor.call('unlockMessage', {
+			_id: message._id,
+			rid: message.rid,
+		});
 	}, [message]);
 
 	return (
@@ -40,8 +49,11 @@ export const VideoAttachment: FC<VideoAttachmentProps> = ({
 			</Attachment.Row>
 			{!collapsed && (
 				<Attachment.Content width='full'>
-					{locked && (
-						<Button onClick={onPpvClick} borderWidth='0' p='0'>Unlock</Button>
+					{locked && owner && (
+						<Button className='unlock-button' onClick={onUnlockClick} borderWidth='0' p='0'>Unlock</Button>
+					)}
+					{locked && !owner && (
+						<Button className='unlock-button' onClick={onPpvClick} borderWidth='0' p='0'>Pay ${message.ppv.price}</Button>
 					)}
 					{!locked && (
 						<Box is='video' width='full' controls>

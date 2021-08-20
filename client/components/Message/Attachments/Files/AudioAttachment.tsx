@@ -1,4 +1,5 @@
 import React, { FC, useCallback, MouseEvent } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Button } from '@rocket.chat/fuselage';
 
 import { AudioAttachmentProps } from '../../../../../definition/IMessage/MessageAttachment/Files/AudioAttachmentProps';
@@ -20,6 +21,7 @@ export const AudioAttachment: FC<AudioAttachmentProps> = ({
 	title_link_download: hasDownload,
 	message,
 	locked,
+	owner,
 }) => {
 	const [collapsed, collapse] = useCollapse(collapsedDefault);
 	const getURL = useMediaUrl();
@@ -27,6 +29,14 @@ export const AudioAttachment: FC<AudioAttachmentProps> = ({
 	const onPpvClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
 		event.preventDefault();
 		return fireGlobalEvent('click-pay-per-view', { message });
+	}, [message]);
+
+	const onUnlockClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
+		event.preventDefault();
+		Meteor.call('unlockMessage', {
+			_id: message._id,
+			rid: message.rid,
+		});
 	}, [message]);
 
 	return (
@@ -40,8 +50,11 @@ export const AudioAttachment: FC<AudioAttachmentProps> = ({
 			</Attachment.Row>
 			{!collapsed && (
 				<Attachment.Content border='none'>
-					{locked && (
-						<Button onClick={onPpvClick} borderWidth='0' p='0'>Unlock</Button>
+					{locked && owner && (
+						<Button className='unlock-button' onClick={onUnlockClick} borderWidth='0' p='0'>Unlock</Button>
+					)}
+					{locked && !owner && (
+						<Button className='unlock-button' onClick={onPpvClick} borderWidth='0' p='0'>Pay ${message.ppv.price}</Button>
 					)}
 					{!locked && (
 						<audio controls>

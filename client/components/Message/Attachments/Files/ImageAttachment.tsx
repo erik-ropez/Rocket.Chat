@@ -1,5 +1,5 @@
 import React, { FC, useCallback, MouseEvent } from 'react';
-import { Button } from '@rocket.chat/fuselage';
+import { Button, Box } from '@rocket.chat/fuselage';
 
 import { ImageAttachmentProps } from '../../../../../definition/IMessage/MessageAttachment/Files/ImageAttachmentProps';
 import MarkdownText from '../../../MarkdownText';
@@ -26,6 +26,7 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 	title_link_download: hasDownload,
 	message,
 	locked,
+	owner,
 }) => {
 	const [loadImage, setLoadImage] = useLoadImage();
 	const [collapsed, collapse] = useCollapse(collapsedDefault);
@@ -36,6 +37,14 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 	const onPpvClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
 		event.preventDefault();
 		return fireGlobalEvent('click-pay-per-view', { message });
+	}, [message]);
+
+	const onUnlockClick = useCallback((event: MouseEvent<HTMLOrSVGElement>) => {
+		event.preventDefault();
+		Meteor.call('unlockMessage', {
+			_id: message._id,
+			rid: message.rid,
+		});
 	}, [message]);
 
 	return (
@@ -49,8 +58,8 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 			</Attachment.Row>
 			{!collapsed && (
 				<Attachment.Content>
-					{locked && (
-						<Button onClick={onPpvClick} borderWidth='0' p='0'>
+					{locked && owner && (
+						<Button className='unlock-button-container' onClick={onUnlockClick} borderWidth='0' p='0'>
 							<Image
 								{...imageDimensions}
 								loadImage={loadImage}
@@ -59,6 +68,20 @@ export const ImageAttachment: FC<ImageAttachmentProps> = ({
 								previewUrl={previewUrl}
 								galleryItem={false}
 							/>
+							<Box className="unlock-button">Unlock</Box>
+						</Button>
+					)}
+					{locked && !owner && (
+						<Button className='unlock-button-container' onClick={onPpvClick} borderWidth='0' p='0'>
+							<Image
+								{...imageDimensions}
+								loadImage={loadImage}
+								setLoadImage={setLoadImage}
+								src={previewUrl}
+								previewUrl={previewUrl}
+								galleryItem={false}
+							/>
+							<Box className="unlock-button">Pay ${message.ppv.price}</Box>
 						</Button>
 					)}
 					{!locked && (
