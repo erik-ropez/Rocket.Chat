@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import s from 'underscore.string';
@@ -118,10 +119,10 @@ const getAudioUploadPreview = (file, preview) => `\
 	</div>
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
-	</div>
+	</div>` + (creator ? `\
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
-	</div>
+	</div>` : '') + `\
 </div>`;
 
 const getVideoUploadPreview = (file, preview) => `\
@@ -137,13 +138,13 @@ const getVideoUploadPreview = (file, preview) => `\
 	</div>
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
-	</div>
+	</div>` + (creator ? `\
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
-	</div>
+	</div>` : '') + `\
 </div>`;
 
-const getImageUploadPreview = (file, preview) => `\
+const getImageUploadPreview = (file, preview, creator) => `\
 <div class='upload-preview'>
 	<div class='upload-preview-file' style='background-image: url(${ preview })'></div>
 </div>
@@ -153,10 +154,10 @@ const getImageUploadPreview = (file, preview) => `\
 	</div>
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-description' autofocus style='display: inherit;' value='' placeholder='${ t('Upload_file_description') }'>
-	</div>
+	</div>` + (creator ? `\
 	<div class="rc-input__wrapper">
 		<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
-	</div>
+	</div>` : '') + `\
 </div>`;
 
 const formatBytes = (bytes, decimals) => {
@@ -191,19 +192,19 @@ const getGenericUploadPreview = (file) => `\
 </div>
 <div class="rc-input__wrapper">
 <input class="rc-input__element" id='file-description' style='display: inherit;' value='' autoFocus placeholder='${ t('Upload_file_description') }'>
-</div>
+</div>` + (creator ? `\
 <div class="rc-input__wrapper">
-<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
-</div>
+	<input class="rc-input__element" id='file-price' style='display: inherit;' value='' placeholder='${ t('Upload_file_price') }'>
+</div>` : '') + `\
 </div>`;
 
-const getUploadPreview = async (file, preview) => {
+const getUploadPreview = async (file, preview, creator) => {
 	if (file.type === 'audio') {
-		return getAudioUploadPreview(file, preview);
+		return getAudioUploadPreview(file, preview, creator);
 	}
 
 	if (file.type === 'video') {
-		return getVideoUploadPreview(file, preview);
+		return getVideoUploadPreview(file, preview, creator);
 	}
 
 	const isImageFormatSupported = () => new Promise((resolve) => {
@@ -214,10 +215,10 @@ const getUploadPreview = async (file, preview) => {
 	});
 
 	if (file.type === 'image' && await isImageFormatSupported()) {
-		return getImageUploadPreview(file, preview);
+		return getImageUploadPreview(file, preview, creator);
 	}
 
-	return getGenericUploadPreview(file, preview);
+	return getGenericUploadPreview(file, preview, creator);
 };
 
 export const fileUpload = async (files, input, { rid, tmid }) => {
@@ -264,9 +265,11 @@ export const fileUpload = async (files, input, { rid, tmid }) => {
 			return;
 		}
 
+		const creator = !!Meteor.user().customFields?.creator;
+
 		showUploadPreview(file, async (file, preview) => modal.open({
 			title: t('Upload_file_question'),
-			text: await getUploadPreview(file, preview),
+			text: await getUploadPreview(file, preview, creator),
 			showCancelButton: true,
 			closeOnConfirm: false,
 			closeOnCancel: false,
@@ -286,7 +289,7 @@ export const fileUpload = async (files, input, { rid, tmid }) => {
 				fileName,
 				msg: msg || undefined,
 				file,
-				price: document.getElementById('file-price').value || undefined,
+				price: creator && (document.getElementById('file-price').value || undefined),
 			});
 
 			uploadNextFile();

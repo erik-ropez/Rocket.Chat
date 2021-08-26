@@ -39,12 +39,15 @@ import './messageBoxNotSubscribed';
 import './messageBox.html';
 import './messageBoxReadOnly';
 
-Template.messageBox.onCreated(function() {
+import { APIClient } from '../../../utils/client';
+
+Template.messageBox.onCreated(async function() {
 	this.state = new ReactiveDict();
 	this.popupConfig = new ReactiveVar(null);
 	this.replyMessageData = new ReactiveVar();
 	this.isMicrophoneDenied = new ReactiveVar(true);
 	this.isSendIconVisible = new ReactiveVar(false);
+	this.canSendTip = new ReactiveVar(false);
 
 	this.set = (value) => {
 		const { input } = this;
@@ -104,6 +107,20 @@ Template.messageBox.onCreated(function() {
 			input.focus();
 		});
 	};
+
+	const { rid } = Template.currentData();
+	const room = Session.get(`roomData${ rid }`);
+	const roomOfTwo = room.t == 'd' && room.uids.length == 2;
+	if (roomOfTwo) {
+		const otherUid = room.uids.find(x => x != Meteor.userId());
+		if (otherUid) {
+			const { user: otherUser } = await APIClient.v1.get(`users.info?userId=${otherUid}&fields={"username":1,"customFields":1}`);
+			this.otherUserUsername = otherUser.username;
+			if (otherUser.customFields?.creator) {
+				this.canSendTip.set(true);
+			}
+		}
+	}
 });
 
 Template.messageBox.onRendered(function() {
@@ -250,10 +267,7 @@ Template.messageBox.helpers({
 		return roomTypes.verifyCanSendMessage(rid);
 	},
 	canSendTip() {
-		const { rid } = Template.currentData();
-		const room = Session.get(`roomData${ rid }`);
-		return room.t == 'd' && room.uids.length == 2;
-		// TODO: Check if other user is creator.
+		return Template.instance().canSendTip.get();
 	},
 	actions() {
 		const actionGroups = messageBox.actions.get();
@@ -452,7 +466,7 @@ Template.messageBox.events({
 		const { rid, tmid, onValueChanged } = this;
 		onValueChanged && onValueChanged.call(this, event, { rid, tmid });
 	},
-	async 'click .js-send'(event, instance) {
+	'click .js-send'(event, instance) {
 		instance.send(event);
 	},
 	'click .js-action-menu'(event, instance) {
@@ -520,13 +534,11 @@ Template.messageBox.events({
 
 		applyFormatting(pattern, instance.input);
 	},
-	'click .js-send-tip'(event, instance) {
+	async 'click .js-send-tip'(event, instance) {
 		event.preventDefault();
 		event.stopPropagation();
 
-		const { rid } = Template.currentData();
-		const room = Session.get(`roomData${ rid }`);
-		const username = room.usernames[0]
+		const username = instance.otherUserUsername;
 
 		return fireGlobalEvent('click-send-tip', {
 			username,
