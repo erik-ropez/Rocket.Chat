@@ -246,6 +246,17 @@
     fill: inherit;
 }
 
+@media (max-width: 500px) {
+    .rc-message-box .rc-message-box__container .rc-message-box__textarea {
+        padding: 0 5px;
+    }
+
+    .rc-message-box .rc-message-box__container .rc-message-box__send-tip {
+        -webkit-box-ordinal-group: 5;
+        order: 4;
+    }
+}
+
 /*
  *  Message box
  */
@@ -370,6 +381,12 @@
  *  Modals
  */
 
+.rcx-modal {
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .rcx-modal .rcx-modal__inner {
     border-radius: 7px;
 }
@@ -409,6 +426,20 @@
 .rcx-modal .rcx-modal__footer .rcx-button.rcx-button--primary {
     border-color: #00FFEA;
     background: #00FFEA;
+}
+
+@media screen and (max-width: 37.5em) {
+    .rcx-modal .rcx-modal__footer .rcx-button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .rcx-modal .rcx-modal__footer .rcx-button-group > .rcx-button-group__item {
+        margin-right: 0;
+        margin-inline: 0;
+    }
+    .rcx-modal .rcx-modal__footer .rcx-button-group > .rcx-button-group__item:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
 }
 
 /*
