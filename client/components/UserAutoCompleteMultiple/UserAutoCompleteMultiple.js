@@ -11,9 +11,9 @@ import Avatar from './Avatar';
 const query = (term = '') => ({ selector: JSON.stringify({ term }) });
 
 const UserAutoCompleteMultiple = (props) => {
-	const excludeSelf = props.excludeself || false;
+	const excludeSelf = Boolean(props.excludeself || false);
 	console.log('excludeSelf', excludeSelf);
-	delete props.excludeself;
+	// delete props.excludeself;
 	const selfUsername = Meteor.user().username;
 	console.log('selfUsername', selfUsername);
 
