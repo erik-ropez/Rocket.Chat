@@ -12,8 +12,10 @@ const query = (term = '') => ({ selector: JSON.stringify({ term }) });
 
 const UserAutoCompleteMultiple = (props) => {
 	const excludeSelf = props.excludeself || false;
+	console.log('excludeSelf', excludeSelf);
 	delete props.excludeself;
 	const selfUsername = Meteor.user().username;
+	console.log('selfUsername', selfUsername);
 
 	const [filter, setFilter] = useState('');
 	const debouncedFilter = useDebouncedValue(filter, 1000);
@@ -22,9 +24,17 @@ const UserAutoCompleteMultiple = (props) => {
 		useMemo(() => query(debouncedFilter), [debouncedFilter]),
 	);
 	const options = useMemo(
-		() => (data && data.items
-			.filter((user) => !excludeSelf || (user.username != selfUsername))
-			.map((user) => ({ value: user.username, label: user.name }))) || [],
+		() => {
+			console.log('data', data);
+			if (data) {
+				console.log('excludeSelf, selfUsername', [excludeSelf, selfUsername]);
+				return data.items
+					.filter((user) => !excludeSelf || (user.username != selfUsername))
+					.map((user) => ({ value: user.username, label: user.name }))
+			} else {
+				return [];
+			}
+		},
 		[data],
 	);
 	const onClickRemove = useMutableCallback((e) => {
