@@ -46,7 +46,6 @@ export class IframeLogin {
 			return;
 		}
 
-		console.log('tryLogin');
 		const options = {
 			beforeSend: (xhr) => {
 				xhr.withCredentials = true;
@@ -64,7 +63,6 @@ export class IframeLogin {
 		}
 
 		HTTP.call(this.apiMethod, this.apiUrl, options, (error, result) => {
-			console.log(error, result);
 			if (result && result.data && (result.data.token || result.data.loginToken)) {
 				this.loginWithToken(result.data, (error, result) => {
 					if (error) {
@@ -91,8 +89,6 @@ export class IframeLogin {
 				token: tokenData,
 			};
 		}
-
-		console.log('loginWithToken');
 
 		if (tokenData.loginToken) {
 			return Meteor.loginWithToken(tokenData.loginToken, callback);
