@@ -9,6 +9,7 @@ import { useEndpointActionExperimental } from '../../hooks/useEndpointAction';
 import { fireGlobalEvent } from '../../../app/ui-utils';
 import axios from 'axios';
 import { goToRoomById } from '../../lib/goToRoomById';
+import { settings } from '/app/settings/client';
 
 type Username = IUser['username'];
 
@@ -20,6 +21,8 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 	const t = useTranslation();
 	const [users, setUsers] = useState<Array<Username>>([]);
 	const [usersEntry, setUsersEntry] = useState('manual');
+
+	let usersEntryForEvent = null;
 
 	const createMass = useEndpointActionExperimental('POST', 'mm.create');
 
@@ -46,21 +49,28 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 		}
 	});
 
-	const subscribersEventListener = async (e) => {
+	const initRocketEffectEventListener = async (e) => {
 		if (typeof e.data !== 'object' || typeof e.data.externalCommand !== 'string') {
 			return;
 		}
 
 		if (e.data.externalCommand === 'init-rocket-effect') {
-			window.removeEventListener('message', subscribersEventListener);
+			window.removeEventListener('message', initRocketEffectEventListener);
 
-			const { data: { data: users } } = await axios.get(`${e.data.url}/api/customer/user/subscriber`, {
-				headers: {
-					'X-Authorization': `Bearer ${e.data.token}`
-				}
-			});
+			const endpoints = {
+				subscribers: '/api/customer/user/subscriber',
+				followers: '/api/customer/user/followers',
+			};
 
-			setUsers(users.map(u => u.username));
+			if (endpoints[usersEntryForEvent]) {
+				const { data: { data: users } } = await axios.get(settings.get('Gmh_Url') + endpoints[usersEntryForEvent], {
+					headers: {
+						'X-Authorization': `Bearer ${e.data.token}`
+					},
+					withCredentials: true,
+				});
+				setUsers(users.map(u => u.username));
+			}
 		}
 	};
 
@@ -68,9 +78,10 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 		setUsers([])
 
 		setUsersEntry(event.currentTarget.value);
+		usersEntryForEvent = event.currentTarget.value;
 
-		if (event.currentTarget.value == 'subscribers') {
-			window.addEventListener('message', subscribersEventListener)
+		if (event.currentTarget.value == 'subscribers' || event.currentTarget.value == 'followers') {
+			window.addEventListener('message', initRocketEffectEventListener);
 			fireGlobalEvent('init-rocket-effect');
 		}
 	}, []);
@@ -96,7 +107,7 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 							<Field.Label htmlFor='usersManualEntry'>{t('Mass_message_manual_entry')}</Field.Label>
 						</Field.Row>
 					</Field>
-					<Field width='unset'>
+					<Field mie='x16' width='unset'>
 						<Field.Row>
 							<RadioButton
 								id='usersSubscribers'
@@ -108,10 +119,26 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 							<Field.Label htmlFor='usersSubscribers'>{t('Mass_message_all_subscribers')}</Field.Label>
 						</Field.Row>
 					</Field>
+					<Field width='unset'>
+						<Field.Row>
+							<RadioButton
+								id='usersFollowers'
+								name='usersEntry'
+								value='followers'
+								onChange={handleUsersEntryChange}
+								checked={usersEntry === 'followers'}
+							/>
+							<Field.Label htmlFor='usersFollowers'>{t('Mass_message_all_followers')}</Field.Label>
+						</Field.Row>
+					</Field>
 				</Box>
 
 				{usersEntry === 'subscribers' && (
 					<Box mbs='x16'>{t('Mass_message_subscribers_description')}</Box>
+				)}
+
+				{usersEntry === 'followers' && (
+					<Box mbs='x16'>{t('Mass_message_followers_description')}</Box>
 				)}
 
 				{usersEntry === 'manual' && (

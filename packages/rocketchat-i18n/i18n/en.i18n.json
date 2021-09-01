@@ -4647,6 +4647,8 @@
   "Mass_message_manual_entry": "Manual entry",
   "Mass_message_all_subscribers": "All subscribers",
   "Mass_message_subscribers_description": "You are about to send messages to all of your subscribers.",
+  "Mass_message_all_followers": "All followers",
+  "Mass_message_followers_description": "You are about to send messages to all of your followers.",
   "Mass_message_manual_entry_description": "You are about to send messages to multiple users. Add the ones you would like to talk.",
   "Mass_messages_about_to_sent": "You are about to send message to following users",
   "Mass_Message_was_sent": "Mass message was sent.",
