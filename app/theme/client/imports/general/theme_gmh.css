@@ -1,5 +1,28 @@
 
 /**
+ *  Body
+ */
+
+body {
+    background-color: unset;
+}
+
+.full-page,
+.page-loading {
+    background-color: unset;
+}
+
+.loading-animation {
+    background-image: url('/images/loader.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loading-animation .bounce {
+    display: none;
+}
+
+/**
  *  Sidebar header
  */
 
