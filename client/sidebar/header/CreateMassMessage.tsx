@@ -87,14 +87,14 @@ const CreateMassMessage: FC<CreateMassMessageProps> = ({ onClose }) => {
 	}, []);
 
 	return (
-		<Modal>
+		<Modal className='messages-modal'>
 			<Modal.Header>
 				<Modal.Title>{t('Mass_Messages')}</Modal.Title>
 				<Modal.Close onClick={onClose} />
 			</Modal.Header>
 			<Modal.Content>
 
-				<Box display='flex' flexDirection='row' width='full'>
+				<Box display='flex' flexDirection='row' width='full' flexWrap='wrap'>
 					<Field mie='x16' width='unset'>
 						<Field.Row>
 							<RadioButton
