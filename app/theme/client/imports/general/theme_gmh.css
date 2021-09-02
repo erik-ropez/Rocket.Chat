@@ -77,6 +77,19 @@ body {
     background-color: #a5fef7;
 }
 
+
+.rcx-sidebar .rcx-sidebar-item .rcx-sidebar-item__icon--highlighted,
+.rcx-sidebar .rcx-sidebar-item .rcx-sidebar-item--highlighted {
+    color: #9ea2a8;
+}
+
+.rcx-sidebar .rcx-sidebar-item .rcx-sidebar-item__subtitle {
+    font-size: 1rem;
+}
+.rcx-sidebar .rcx-sidebar-item .rcx-sidebar-item__subtitle.rcx-sidebar-item--highlighted {
+    font-weight: bold;
+}
+
 .rcx-sidebar-item__menu-wraper .rcx-button--ghost:hover,
 .rcx-sidebar-item__menu-wraper .rcx-button--ghost.hover,
 .rcx-sidebar-item__menu-wraper .rcx-button--ghost.is-hovered {
