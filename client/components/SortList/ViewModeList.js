@@ -40,7 +40,6 @@ function ViewModeList() {
 			<ul className='rc-popover__list'>
 				<Margins block='x8'>
 					<SortListItem
-						icon={'extended-view'}
 						text={t('Extended')}
 						input={
 							<RadioButton
@@ -52,7 +51,6 @@ function ViewModeList() {
 						}
 					/>
 					<SortListItem
-						icon={'medium-view'}
 						text={t('Medium')}
 						input={
 							<RadioButton
@@ -64,7 +62,6 @@ function ViewModeList() {
 						}
 					/>
 					<SortListItem
-						icon={'condensed-view'}
 						text={t('Condensed')}
 						input={
 							<RadioButton
@@ -76,7 +73,6 @@ function ViewModeList() {
 						}
 					/>
 					<SortListItem
-						icon={'user-rounded'}
 						text={t('Avatars')}
 						input={
 							<ToggleSwitch
