@@ -148,6 +148,38 @@ body {
     display: none;
 }
 
+.rcx-button.rcx-button--ghost:hover,
+.rcx-button.rcx-button--ghost-info {
+    border: none;
+    color: #00FFEA;
+}
+
+.rcx-button.rcx-button--ghost,
+.rcx-button.rcx-button--ghost:hover,
+.rcx-button.rcx-button--ghost-info:hover {
+    border: none;
+    background-color: unset;
+}
+
+.main-content .rcx-input-box__wrapper,
+.main-content .rcx-select {
+    border-radius: 7px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border: 2px solid #1C1C1C;
+    opacity: 0.36;
+}
+
+.main-content .rcx-input-box__wrapper:focus-within,
+.main-content .rcx-select:focus-within {
+    border: 2px solid #00FFEA;
+    opacity: 1;
+    box-shadow: none;
+}
+
+.main-content .rcx-input-box:focus + .rcx-input-box__addon {
+    color: black;
+}
+
 /*
  *  Avatar
  */
@@ -223,6 +255,16 @@ body {
 .messages-container-wrapper .rcx-avatar .rcx-avatar__element.rcx-avatar--x48 {
     width: 86px;
     height: 86px;
+}
+
+.gallery-item .rcx-avatar.rcx-avatar--x48 {
+    width: 3rem;
+    height: 3rem;
+}
+
+.gallery-item .rcx-avatar .rcx-avatar__element.rcx-avatar--x48 {
+    width: 2.75rem;
+    height: 2.75rem;
 }
 
 /*
@@ -549,7 +591,7 @@ body {
 }
 
 /*
- *  Controls
+ *  Radio
  */
 
 .rcx-radio-button .rcx-radio-button__input + .rcx-radio-button__fake,
@@ -580,6 +622,10 @@ body {
     content: "";
 }
 
+/*
+ *  Toggle
+ */
+
 .rcx-toggle-switch .rcx-toggle-switch__input + .rcx-toggle-switch__fake,
 .rcx-toggle-switch .rcx-toggle-switch__input:hover + .rcx-toggle-switch__fake,
 .rcx-toggle-switch .rcx-toggle-switch__input:active + .rcx-toggle-switch__fake,
@@ -598,7 +644,9 @@ body {
     box-shadow: none;
 }
 
-
+/*
+ *  Checkbox
+ */
 
 .rcx-check-box .rcx-check-box__input + .rcx-check-box__fake,
 .rcx-check-box .rcx-check-box__input:hover + .rcx-check-box__fake,
