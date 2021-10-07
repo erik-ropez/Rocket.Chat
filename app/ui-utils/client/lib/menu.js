@@ -156,7 +156,6 @@ export const menu = new class extends Emitter {
 		this.wrapper = $('.messages-box > .wrapper');
 		const ignore = (fn) => (event) => document.body.clientWidth <= 700 && fn(event);
 
-		window.addEventListener('resize', ignore((e) => this.resize(e)));
 		document.body.addEventListener('touchstart', ignore((e) => this.touchstart(e)));
 		document.body.addEventListener('touchmove', ignore((e) => this.touchmove(e)));
 		document.body.addEventListener('touchend', ignore((e) => this.touchend(e)));
@@ -209,10 +208,6 @@ export const menu = new class extends Emitter {
 
 	toggle() {
 		return this.isOpen() ? this.close() : this.open();
-	}
-
-	resize(e) {
-		this.open();
 	}
 }();
 
