@@ -256,6 +256,8 @@ export const sendMessage = function(user, message, room, upsert = false) {
 					delete massMessage._id;
 
 					Messages.insert(massMessage);
+
+					callbacks.runAsync('afterSaveMessage', massMessage, massMessageRoom, massMessageUser._id);
 				}
 
 				return;
