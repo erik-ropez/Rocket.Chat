@@ -6,7 +6,7 @@ import { hasPermission, canSendMessage } from '../../../authorization/server';
 import { callbacks } from '../../../callbacks';
 
 Meteor.methods({
-	unlockMessage(message) {
+	revertUnlockMessage(message) {
 		check(message, Match.ObjectIncluding({ _id: String }));
 
 		if (!Meteor.userId()) {
@@ -18,7 +18,7 @@ Meteor.methods({
 		if (!originalMessage || !originalMessage._id) {
 			return;
 		}
-		if (!originalMessage.ppv || !originalMessage.ppv.locked) {
+		if (!originalMessage.ppv || originalMessage.ppv.locked) {
 			return;
 		}
 
@@ -36,23 +36,19 @@ Meteor.methods({
 		message.u = originalMessage.u;
 
 		message.ppv = originalMessage.ppv;
-		message.ppv.locked = false;
-
-		const ppvContent = originalMessage._ppvContent;
+		message.ppv.locked = true;
 
 		message.file = originalMessage.file;
-		message.file._id = ppvContent.file._id;
+
+		delete message.file._id;
 
 		message.attachments = originalMessage.attachments;
-		for (const attachmentIndex in ppvContent.attachments) {
-			const attachment = message.attachments[attachmentIndex];
-			const ppvAttachment = ppvContent.attachments[attachmentIndex];
-
-			attachment.title_link = ppvAttachment.title_link;
+		for (const attachment of message.attachments) {
+			delete attachment.title_link;
 
 			for (const prop of ['image_url', 'video_url', 'audio_url']) {
-				if (ppvAttachment[prop]) {
-					attachment[prop] = ppvAttachment[prop];
+				if (attachment[prop]) {
+					attachment[prop] = '';
 				}
 			}
 		}

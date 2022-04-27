@@ -66,6 +66,7 @@ import './methods/unarchiveRoom';
 import './methods/unblockUser';
 import './methods/updateMessage';
 import './methods/unlockMessage';
+import './methods/revertUnlockMessage';
 
 export * from './lib';
 export * from './functions';

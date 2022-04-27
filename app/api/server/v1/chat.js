@@ -742,3 +742,24 @@ API.v1.addRoute('chat.unlockMessage', { authRequired: true }, {
 		return API.v1.success();
 	},
 });
+
+API.v1.addRoute('chat.revertUnlockMessage', { authRequired: true }, {
+	post() {
+		if (!this.bodyParams.messageId || !this.bodyParams.messageId.trim()) {
+			throw new Meteor.Error('error-messageid-param-not-provided', 'The required "messageId" param is required.');
+		}
+
+		const msg = Messages.findOneById(this.bodyParams.messageId);
+
+		if (!msg) {
+			throw new Meteor.Error('error-message-not-found', 'The provided "messageId" does not match any existing message.');
+		}
+
+		Meteor.runAsUser(this.userId, () => Meteor.call('revertUnlockMessage', {
+			_id: msg._id,
+			rid: msg.rid,
+		}));
+
+		return API.v1.success();
+	},
+});
