@@ -106,7 +106,7 @@ const showUploadPreview = (file, callback) => {
 	return callback(file, null);
 };
 
-const getAudioUploadPreview = (file, preview) => `\
+const getAudioUploadPreview = (file, preview, creator) => `\
 <div class='upload-preview'>
 	<audio style="width: 100%;" controls="controls">
 		<source src="${ preview }" type="${ file.file.type }">
@@ -125,7 +125,7 @@ const getAudioUploadPreview = (file, preview) => `\
 	</div>` : '') + `\
 </div>`;
 
-const getVideoUploadPreview = (file, preview) => `\
+const getVideoUploadPreview = (file, preview, creator) => `\
 <div class='upload-preview'>
 	<video style="width: 100%;" controls="controls">
 		<source src="${ preview }" type="video/webm">
@@ -182,7 +182,7 @@ const formatBytes = (bytes, decimals) => {
 	return `${ parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) } ${ sizes[i] }`;
 };
 
-const getGenericUploadPreview = (file) => `\
+const getGenericUploadPreview = (file, preview, creator) => `\
 <div class='upload-preview'>
 <div>${ Handlebars._escape(file.name) } - ${ formatBytes(file.file.size) }</div>
 </div>
